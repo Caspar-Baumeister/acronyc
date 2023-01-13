@@ -1,0 +1,2 @@
+const double STANDART_BUTTON_HEIGHT = 50;
+const double STANDART_BUTTON_WIDTH = 300;
