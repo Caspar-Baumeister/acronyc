@@ -10,7 +10,7 @@ class MyThemes {
       color: APPBAR_COLOR,
     ),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: Colors.grey,
+      selectionColor: NOT_ACTIVE_COLOR,
       cursorColor: Color(0xff171d49),
       selectionHandleColor: Color(0xff005e91),
     ),

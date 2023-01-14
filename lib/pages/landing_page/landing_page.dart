@@ -3,6 +3,7 @@ import 'package:acronyc_app/layouts/main_body_padding.dart';
 import 'package:acronyc_app/layouts/standart_text_column.dart';
 import 'package:acronyc_app/utiles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -57,10 +58,13 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Center(
-                child: Text(
-              "Continue without  Login",
-              style: STANDART_DESCRIPTION,
+            Center(
+                child: GestureDetector(
+              onTap: () => context.go("/asanas"),
+              child: const Text(
+                "Continue without Login",
+                style: STANDART_DESCRIPTION,
+              ),
             ))
           ],
         ),

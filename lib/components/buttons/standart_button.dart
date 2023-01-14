@@ -33,7 +33,7 @@ class StandartButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: isFilled ? BUTTON_FILL_COLOR : Colors.white,
             border: Border.all(color: BUTTON_FILL_COLOR),
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(STANDART_BUTTON_ROUNDNESS),
           ),
           width: width,
           height: STANDART_BUTTON_HEIGHT,

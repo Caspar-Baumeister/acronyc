@@ -1,2 +1,5 @@
 const double STANDART_BUTTON_HEIGHT = 50;
 const double STANDART_BUTTON_WIDTH = 300;
+
+const double STANDART_BUTTON_ROUNDNESS = 15;
+const double STANDART_ICON_SIZE = 30;
