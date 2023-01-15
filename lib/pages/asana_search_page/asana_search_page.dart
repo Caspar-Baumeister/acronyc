@@ -1,5 +1,6 @@
 import 'package:acronyc_app/components/search_bar_widget.dart';
 import 'package:acronyc_app/layouts/main_body_padding.dart';
+import 'package:acronyc_app/pages/asana_search_page/widgets/grid_view_asana_card.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/constants.dart';
 import 'package:acronyc_app/utiles/text_styles.dart';
@@ -114,47 +115,6 @@ class AsanaSearchPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class GridViewAsanaCard extends StatelessWidget {
-  const GridViewAsanaCard(
-      {super.key, required this.title, required this.imageUrl});
-
-  final String title;
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            imageUrl,
-            // height: MediaQuery.of(context).size.width,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: STANDART_DESCRIPTION,
-                ),
-                Image.asset(
-                  "assets/icons/Press_area.png",
-                  height: 30,
-                  width: 30,
-                ),
-              ],
-            ),
-          )
-        ],
       ),
     );
   }

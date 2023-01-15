@@ -1,6 +1,7 @@
 import 'package:acronyc_app/components/buttons/standart_button.dart';
 import 'package:acronyc_app/layouts/main_body_padding.dart';
 import 'package:acronyc_app/layouts/standart_text_column.dart';
+import 'package:acronyc_app/utiles/constants.dart';
 import 'package:acronyc_app/utiles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +11,8 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonWidth = (MediaQuery.of(context).size.width / 2) - 30;
+    double buttonWidth = (MediaQuery.of(context).size.width / 2) -
+        (STANDART_TEXT_HORIZONTAL_PADDING * 1.5);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -23,7 +25,8 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: STANDART_TEXT_HORIZONTAL_PADDING),
               child: StandartTextColumn(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -42,7 +45,8 @@ class LandingPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: STANDART_TEXT_HORIZONTAL_PADDING),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

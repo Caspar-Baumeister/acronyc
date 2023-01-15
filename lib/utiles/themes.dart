@@ -5,22 +5,20 @@ enum MyThemeKeys { LIGHT, DARK }
 
 class MyThemes {
   static final ThemeData lightTheme = ThemeData(
+    progressIndicatorTheme:
+        const ProgressIndicatorThemeData(color: PRIMARY_COLOR),
     primaryColor: PRIMARY_COLOR,
     appBarTheme: const AppBarTheme(
       color: APPBAR_COLOR,
     ),
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: NOT_ACTIVE_COLOR,
-      cursorColor: Color(0xff171d49),
-      selectionHandleColor: Color(0xff005e91),
+      cursorColor: PRIMARY_COLOR,
+      selectionHandleColor: PRIMARY_COLOR,
     ),
     backgroundColor: Colors.white,
     brightness: Brightness.light,
     highlightColor: Colors.white,
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Colors.blue,
-        focusColor: Colors.blueAccent,
-        splashColor: Colors.lightBlue),
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
   );
 
