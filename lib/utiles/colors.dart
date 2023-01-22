@@ -20,3 +20,4 @@ const Color NOT_ACTIVE_COLOR = Color(0xFFe4e2e3);
 const Color CONFIRMED_COLOR = Color(0xFF6c8484);
 const Color BUTTON_FILL_COLOR = PRIMARY_COLOR;
 const Color BUTTON_TEXT_COLOR = PRIMARY_COLOR;
+const Color STANDART_TEXT_COLOR = Colors.black;

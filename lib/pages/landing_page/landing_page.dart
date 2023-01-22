@@ -52,12 +52,14 @@ class LandingPage extends StatelessWidget {
                 children: [
                   StandartButton(
                     text: "Register",
-                    onPressed: () {},
+                    onPressed: () => context.go("/register"),
                     width: buttonWidth,
                     isFilled: true,
                   ),
                   StandartButton(
-                      text: "Login", onPressed: () {}, width: buttonWidth)
+                      text: "Login",
+                      onPressed: () => context.go("/login"),
+                      width: buttonWidth)
                 ],
               ),
             ),

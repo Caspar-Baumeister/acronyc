@@ -4,6 +4,7 @@ import 'package:acronyc_app/utiles/constants.dart';
 import 'package:acronyc_app/utiles/text_styles.dart';
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SingleAsanaPage extends StatefulWidget {
   const SingleAsanaPage({super.key});
@@ -23,7 +24,9 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(child: const Icon(Icons.arrow_back_ios)),
+        leading: GestureDetector(
+            child: const Icon(Icons.arrow_back_ios),
+            onTap: () => context.pop()),
         title: const Text(
           "Bird",
           style: MAIN_TITLE,
