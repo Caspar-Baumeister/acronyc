@@ -1,7 +1,8 @@
-import 'package:acronyc_app/utiles/colors.dart';
-import 'package:acronyc_app/utiles/constants.dart';
-import 'package:acronyc_app/utiles/text_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../../utiles/colors.dart';
+import '../../utiles/constants.dart';
+import '../../utiles/text_styles.dart';
 
 class StandartButton extends StatelessWidget {
   const StandartButton(

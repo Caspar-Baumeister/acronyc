@@ -1,23 +1,24 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
+// COLORS //
 
-// Marcus Color picks
+const Color GREEN = Color(0xFF054208);
+const Color GREEN_LIGHT = Color.fromARGB(255, 7, 92, 12);
+const Color WHITE = Color(0xFFFFFFFF);
+const Color WHITE1 = Color.fromARGB(255, 243, 244, 243);
+const Color BLACK = Color.fromARGB(255, 0, 8, 0);
+const Color GRAY = Color.fromARGB(86, 0, 8, 0);
 
-const Color COLOR1 = Color(0xFF606c38);
-const Color COLOR2 = Color(0xFF03071e);
-const Color COLOR3 = Color(0xFFffba08);
-const Color COLOR4 = Color(0xFF183a37);
-const Color COLOR5 = Color(0xFFfb8b24);
-const Color COLOR6 = Color(0xFF223843);
-const Color COLOR7 = Color(0xFF0f4c5c);
+// TOKENS //
+const Color TEXT_COLOR = BLACK;
+const Color TEXT_COLOR_LIGHT = GRAY;
+const Color ACCENT_COLOR = GREEN;
+const Color ACCENT_COLOR_LIGHT = GREEN_LIGHT;
+const Color BACKGROUND_COLOR = WHITE1;
+const Color COMPONENT_BACKGROUND_COLOR = WHITE;
+const Color NOT_ACTIVE_COLOR = WHITE1;
+const Color CONFIRMED_COLOR = GREEN;
 
-// COLORS
-// try to use colors in the theme and not arbetrarly in the app
-
-const Color PRIMARY_COLOR = COLOR2; //Color(0xFF772f1a);
-const Color APPBAR_COLOR = PRIMARY_COLOR;
-const Color SECONDARY_COLOR = Color(0xFFe4e2e3);
-const Color NOT_ACTIVE_COLOR = Color(0xFFe4e2e3);
-const Color CONFIRMED_COLOR = Color(0xFF6c8484);
-const Color BUTTON_FILL_COLOR = PRIMARY_COLOR;
-const Color BUTTON_TEXT_COLOR = PRIMARY_COLOR;
-const Color STANDART_TEXT_COLOR = Colors.black;
+const Color BUTTON_FILL_COLOR = ACCENT_COLOR;
+const Color BUTTON_TEXT_COLOR = ACCENT_COLOR;
