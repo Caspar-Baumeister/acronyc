@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home/home_page.dart';
 import 'components/care_view.dart';
@@ -14,11 +13,11 @@ class IntroductionAnimationScreen extends StatefulWidget {
   const IntroductionAnimationScreen({Key? key}) : super(key: key);
 
   @override
-  _IntroductionAnimationScreenState createState() =>
-      _IntroductionAnimationScreenState();
+  IntroductionAnimationScreenState createState() =>
+      IntroductionAnimationScreenState();
 }
 
-class _IntroductionAnimationScreenState
+class IntroductionAnimationScreenState
     extends State<IntroductionAnimationScreen> with TickerProviderStateMixin {
   AnimationController? _animationController;
 
@@ -38,7 +37,6 @@ class _IntroductionAnimationScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(_animationController?.value);
     return Scaffold(
       // backgroundColor: const Color(0xffF7EBE1),
       body: ClipRect(
@@ -119,7 +117,7 @@ class _IntroductionAnimationScreenState
     // Navigator.pop(context);
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const HomePage()));
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.setInt("initScreen", 1);
   }
 }

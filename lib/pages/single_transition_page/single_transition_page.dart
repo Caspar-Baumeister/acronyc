@@ -149,7 +149,9 @@ class _SingleTransitionPageState extends State<SingleTransitionPage> {
                   index: index,
                   setIndex: setIndex,
                   imageLength: widget.transition.steps.length,
-                  activeImage: widget.transition.steps[index].image),
+                  description: widget.transition.steps[index].description,
+                  activeImage: widget.transition.steps[index].image,
+                  steps: widget.transition.steps),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: STANDART_HORIZONTAL_PADDING),

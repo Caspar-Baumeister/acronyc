@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:acronyc_app/pages/single_wm_page/widgets/app_bar_actions.dart';
+import 'package:acronyc_app/utiles/colors.dart';
+import 'package:acronyc_app/utiles/helper_functions/get_difficulty_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/washing_machines_model.dart';
-import '../../utiles/assets.dart';
 import '../../utiles/constants.dart';
 import '../../utiles/helper_functions/steps_to_map.dart';
 import '../../utiles/text_styles.dart';
@@ -21,35 +23,8 @@ class SingleWmPage extends StatefulWidget {
 }
 
 class _SingleWmPageState extends State<SingleWmPage> {
-  final ScrollController controller = ScrollController();
-  final ScrollController _scrollController = ScrollController();
-  final ValueNotifier<double> _percentageCollapsed = ValueNotifier(0.0);
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_updatePercentage);
-  }
-
-  void _updatePercentage() {
-    if (!_scrollController.hasClients) return;
-
-    const double expandedHeight = 200.0 - kToolbarHeight;
-    final double currentHeight =
-        200.0 - _scrollController.offset.clamp(0.0, expandedHeight);
-    final double percentage = 1.0 - (currentHeight / expandedHeight);
-    _percentageCollapsed.value = percentage;
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_updatePercentage);
-    _scrollController.dispose();
-    _percentageCollapsed.dispose();
-    super.dispose();
-  }
-
   int index = 0;
+  final ScrollController controller = ScrollController();
 
   setIndex(newIndex) {
     controller.animateTo(
@@ -66,104 +41,58 @@ class _SingleWmPageState extends State<SingleWmPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(
-      controller: _scrollController,
-      slivers: <Widget>[
-        SliverAppBar(
-          leading: ValueListenableBuilder<double>(
-            valueListenable: _percentageCollapsed,
-            builder: (context, percentage, child) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                color: percentage > 0.5 ? Colors.white : Colors.black,
-                onPressed: () => Navigator.pop(context),
-              );
-            },
-          ),
-          title: ValueListenableBuilder<double>(
-            valueListenable: _percentageCollapsed,
-            builder: (context, percentage, child) {
-              if (percentage > 0.5) {
-                return Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Image(image: Assets.easy),
-                    ),
-                    Text(
-                      widget.wm.name.toUpperCase(),
-                      style: H14W5,
-                    ),
-                  ],
-                );
-              }
-              return Container(); // Empty container when expanded
-            },
-          ),
-          centerTitle: false,
-          expandedHeight: 200.0,
-          pinned: true,
-          stretch: true,
-          flexibleSpace: FlexibleSpaceBar(
-            stretchModes: const <StretchMode>[
-              StretchMode.zoomBackground,
-            ],
-            background: Image.asset(
-              widget.wm.steps[0].image,
-              fit: BoxFit.cover,
-            ),
-          ),
+      appBar: AppBar(
+        //color: White,
+        surfaceTintColor: BACKGROUND_COLOR,
+        backgroundColor: BACKGROUND_COLOR,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.pop(context),
         ),
-
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Image(image: Assets.easy),
-                    ),
-                    Flexible(
-                      child: Text(
-                        widget.wm.name,
-                        style: SUB_TITLE,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                  height: FLOW_SLIDER_HIGHT,
-                  child: FlowScrollView(
-                      controller: controller,
-                      activeImages:
-                          widget.wm.steps.map((e) => e.image).toList(),
-                      index: index,
-                      setIndex: setIndex)),
-              MainImageView(
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Image(image: widget.wm.difficulty.icon),
+            ),
+            Text(
+              widget.wm.name.toUpperCase(),
+              style: H14W5,
+            ),
+          ],
+        ),
+        actions: [AppBarActions(wm: widget.wm)],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+                height: FLOW_SLIDER_HIGHT,
+                child: FlowScrollView(
+                    controller: controller,
+                    activeImages: widget.wm.steps.map((e) => e.image).toList(),
+                    index: index,
+                    setIndex: setIndex)),
+            MainImageView(
+                index: index,
+                setIndex: setIndex,
+                description: widget.wm.steps[index].description,
+                imageLength: widget.wm.steps.length,
+                activeImage: widget.wm.steps[index].image,
+                steps: widget.wm.steps),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: STANDART_HORIZONTAL_PADDING),
+              child: ImageDescriptionView(
+                  descriptions: generateDescriptionMap(widget.wm.steps),
                   index: index,
                   setIndex: setIndex,
-                  imageLength: widget.wm.steps.length,
-                  activeImage: widget.wm.steps[index].image),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: STANDART_HORIZONTAL_PADDING),
-                child: ImageDescriptionView(
-                    descriptions: generateDescriptionMap(widget.wm.steps),
-                    index: index,
-                    setIndex: setIndex,
-                    header: "Bescheibung"),
-              ),
-              const SizedBox(height: 30),
-            ],
-          ),
+                  header: "Bescheibung"),
+            ),
+            const SizedBox(height: 30),
+          ],
         ),
-        // You can add more slivers if needed
-      ],
-    ));
+      ),
+    );
   }
 }

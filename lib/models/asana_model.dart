@@ -44,20 +44,14 @@ class AsanaModel {
       List<String> markedAsanas =
           LocalStorageService.get(Preferences.markedAsanas) ?? [];
       markedAsanas.add(id);
-      print(markedAsanas);
-      print("value: $value");
+
       LocalStorageService.set(Preferences.markedAsanas, markedAsanas)
-          .then((value) {
-        print("inside then future");
-        print(LocalStorageService.get(Preferences.markedAsanas));
-      });
-      print("after future");
+          .then((value) {});
     } else {
       // remove the id from the shared preferences
       List<String> markedAsanas =
           LocalStorageService.get(Preferences.markedAsanas) ?? [];
-      print(markedAsanas);
-      print("value: $value");
+
       markedAsanas.remove(id);
       LocalStorageService.set(Preferences.markedAsanas, markedAsanas);
     }

@@ -1,7 +1,8 @@
+import 'package:acronyc_app/models/step_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utiles/assets.dart';
-import 'full_screen_view.dart';
+import '../../full_screen_step_page.dart';
 
 class MainImageView extends StatelessWidget {
   const MainImageView(
@@ -9,12 +10,17 @@ class MainImageView extends StatelessWidget {
       required this.index,
       required this.setIndex,
       required this.imageLength,
-      required this.activeImage});
+      required this.activeImage,
+      required this.description,
+      required this.steps});
 
   final int index;
   final Function setIndex;
   final int imageLength;
   final String activeImage;
+  final String? description;
+  final List<StepModel> steps;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,8 +31,9 @@ class MainImageView extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => FullScreenImageView(
-                  url: activeImage,
-                  tag: activeImage,
+                  steps: steps,
+                  initialIndex: index,
+                  changeIndex: setIndex,
                 ),
               ));
             },

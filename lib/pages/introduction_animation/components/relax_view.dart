@@ -36,18 +36,18 @@ class RelaxView extends StatelessWidget {
         ),
       ),
     );
-    final textAnimation =
-        Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-2, 0))
-            .animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(
-          0.2,
-          0.4,
-          curve: Curves.fastOutSlowIn,
-        ),
-      ),
-    );
+    // final textAnimation =
+    //     Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-2, 0))
+    //         .animate(
+    //   CurvedAnimation(
+    //     parent: animationController,
+    //     curve: const Interval(
+    //       0.2,
+    //       0.4,
+    //       curve: Curves.fastOutSlowIn,
+    //     ),
+    //   ),
+    // );
     final imageAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-4, 0))
             .animate(

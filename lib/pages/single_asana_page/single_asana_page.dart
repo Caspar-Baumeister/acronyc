@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:acronyc_app/pages/full_screen_asana_page.dart';
 import 'package:acronyc_app/pages/single_asana_page/widgets/app_bar_action_row.dart';
+import 'package:acronyc_app/utiles/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/asana_model.dart';
 import '../../utiles/assets.dart';
-import '../../utiles/colors.dart';
 import '../../utiles/constants.dart';
 import '../../utiles/helper_functions/steps_to_map.dart';
 import '../../utiles/text_styles.dart';
@@ -55,7 +56,7 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
 
   int index = 0;
 
-  setIndex(newIndex) {
+  void setIndex(newIndex) {
     controller.animateTo(
       min(newIndex * FLOW_SLIDER_SINGLE_IMAGE_WIDTH * 1.0,
           controller.position.maxScrollExtent),
@@ -69,35 +70,6 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> actions = [];
-
-    actions.add(
-      ValueListenableBuilder<double>(
-        valueListenable: _percentageCollapsed,
-        builder: (context, percentage, child) {
-          print("percentage: $percentage");
-          return Icon(
-            Icons.star,
-            color:
-                percentage > APPBAR_COLLAPSED_PERCENTAGE ? WHITE1 : TEXT_COLOR,
-          );
-        },
-      ),
-    );
-
-    actions.add(
-      ValueListenableBuilder<double>(
-        valueListenable: _percentageCollapsed,
-        builder: (context, percentage, child) {
-          return Icon(
-            Icons.check_circle,
-            color:
-                percentage > APPBAR_COLLAPSED_PERCENTAGE ? WHITE1 : TEXT_COLOR,
-          );
-        },
-      ),
-    );
-
     return Scaffold(
         body: CustomScrollView(
       controller: _scrollController,
@@ -107,10 +79,15 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
             valueListenable: _percentageCollapsed,
             builder: (context, percentage, child) {
               return percentage > APPBAR_COLLAPSED_PERCENTAGE
-                  ? IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
-                      color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
+                  ? GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                        ),
+                      ),
                     )
                   : const BlurIconButton();
             },
@@ -133,9 +110,7 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
                   widget.asana.name.toUpperCase(),
                   maxLines: 2,
                   style: H14W5.copyWith(
-                    color: percentage > APPBAR_COLLAPSED_PERCENTAGE
-                        ? Colors.white
-                        : Colors.black,
+                    color: TEXT_COLOR,
                   ),
                 );
               }
@@ -150,9 +125,30 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
             stretchModes: const <StretchMode>[
               StretchMode.zoomBackground,
             ],
-            background: Image.asset(
-              widget.asana.img,
-              fit: BoxFit.cover,
+            background: ValueListenableBuilder<double>(
+              valueListenable: _percentageCollapsed,
+              builder: (context, percentage, child) {
+                return GestureDetector(
+                  onTap: () {
+                    if (percentage < APPBAR_COLLAPSED_PERCENTAGE) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FullScreenAsanaView(
+                          url: widget.asana.img,
+                          tag: widget.asana.img,
+                          description: widget.asana.name,
+                        ),
+                      ));
+                    }
+                  },
+                  child: Hero(
+                    tag: widget.asana.img,
+                    child: Image.asset(
+                      widget.asana.img,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -186,10 +182,13 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
                       index: index,
                       setIndex: setIndex)),
               MainImageView(
-                  index: index,
-                  setIndex: setIndex,
-                  imageLength: widget.asana.steps.length,
-                  activeImage: widget.asana.steps[index].image),
+                index: index,
+                setIndex: setIndex,
+                imageLength: widget.asana.steps.length,
+                activeImage: widget.asana.steps[index].image,
+                description: widget.asana.steps[index].description,
+                steps: widget.asana.steps,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: STANDART_HORIZONTAL_PADDING),
@@ -206,13 +205,6 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
         ),
       ],
     ));
-  }
-
-  _actionRowWithBlur(double percentage, bool isCompleted, bool isMarked) {
-    return AppBarActionRow(
-      asana: widget.asana,
-      isCollapsing: percentage > APPBAR_COLLAPSED_PERCENTAGE,
-    );
   }
 }
 

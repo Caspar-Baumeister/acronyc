@@ -35,6 +35,14 @@ class MyThemes {
     splashFactory: const CustomSplashFactory(),
     splashColor: ACCENT_COLOR,
     highlightColor: ACCENT_COLOR.withOpacity(0.5),
+    dialogTheme: const DialogTheme(
+        backgroundColor: BACKGROUND_COLOR,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        surfaceTintColor: BACKGROUND_COLOR),
     tabBarTheme: TabBarTheme(
       // ... other TabBarTheme properties ...
       overlayColor: MaterialStateProperty.all(
@@ -44,8 +52,7 @@ class MyThemes {
         const ProgressIndicatorThemeData(color: ACCENT_COLOR),
     primaryColor: ACCENT_COLOR,
     appBarTheme: const AppBarTheme(
-      color: BLACK,
-    ),
+        color: BACKGROUND_COLOR, surfaceTintColor: BACKGROUND_COLOR),
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: NOT_ACTIVE_COLOR,
       cursorColor: ACCENT_COLOR,

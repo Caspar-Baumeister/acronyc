@@ -39,7 +39,8 @@ class HomePage extends StatelessWidget {
                                       onChanged: (value) {
                                         filterProvider.setSearchQuery(value);
                                       },
-                                      hintText: "Suche nach Asanas",
+                                      hintText:
+                                          "Suche nach Asanas und Waschmaschinen",
                                     ),
                                   ),
                                 ),

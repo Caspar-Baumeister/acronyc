@@ -28,25 +28,25 @@ extension DifficultyExtension on Difficulty {
   }
 }
 
-// define a enum for type [L-Basing, Stehend, Beide]
-enum AcrobaticsType { l_basing, standing, both }
+// // define a enum for type [L-Basing, Stehend, Beide]
+// enum AcrobaticsType { l_basing, standing, both }
 
-// define extension for type
+// // define extension for type
 
-extension AcrobaticsTypeExtension on AcrobaticsType {
-  String get name {
-    switch (this) {
-      case AcrobaticsType.l_basing:
-        return "L-Basing";
-      case AcrobaticsType.standing:
-        return "Stehend";
-      case AcrobaticsType.both:
-        return "Beide";
-      default:
-        return "Beide";
-    }
-  }
-}
+// extension AcrobaticsTypeExtension on AcrobaticsType {
+//   String get name {
+//     switch (this) {
+//       case AcrobaticsType.l_basing:
+//         return "L-Basing";
+//       case AcrobaticsType.standing:
+//         return "Stehend";
+//       case AcrobaticsType.both:
+//         return "Beide";
+//       default:
+//         return "Beide";
+//     }
+//   }
+// }
 
 // enum for preferences
 

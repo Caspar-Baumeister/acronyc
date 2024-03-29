@@ -28,7 +28,7 @@ class FilterRowSection extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           FilterRowBinaryItem(
-            title: "Nicht Erledigt",
+            title: "Nicht Geschafft",
             isActive: asanaSearchProvider.isNotDone,
             changeActiveFilter: (_) {
               asanaSearchProvider.toggleNotDone();
@@ -46,10 +46,11 @@ class FilterRowSection extends StatelessWidget {
             changeActiveFilter: (String? filter) {
               if (filter == null) {
                 asanaSearchProvider.setDifficulty(Difficulty.all);
+              } else {
+                asanaSearchProvider.setDifficulty(
+                  DifficultyExtension.fromName(filter),
+                );
               }
-              asanaSearchProvider.setDifficulty(
-                DifficultyExtension.fromName(filter!),
-              );
               return null;
             },
           ),
@@ -96,7 +97,6 @@ class _FilterRowItemState extends State<FilterRowItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     activeFilter = widget.activeFilter;
   }

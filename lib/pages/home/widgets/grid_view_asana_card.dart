@@ -39,10 +39,9 @@ class GridViewAsanaCard extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: asana.isCompleted
-                            ? ACCENT_COLOR
-                            : Colors.transparent,
-                        width: 2,
+                        color:
+                            asana.isMarked ? ACCENT_COLOR : Colors.transparent,
+                        width: 4,
                       ),
                     ),
                     child: Image.asset(
@@ -54,22 +53,32 @@ class GridViewAsanaCard extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 0,
-                    right: 0,
+                    top: 3,
+                    right: 3,
                     child: ClipOval(
-                      child: Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255)
-                              .withOpacity(0.7), // Subdued color
-                          shape: BoxShape.circle, // Circular shape
-                          // Add box shadow if needed, remove if not
-                        ),
-                        child: Image(
-                          image: asana.difficulty.icon,
-                          height: 30,
-                          width: 30,
+                      child: GestureDetector(
+                        onTap: () => _showPreview(context),
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 1.0, top: 1),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 255, 255)
+                                .withOpacity(0.7), // Subdued color
+                            shape: BoxShape.circle, // Circular shape
+                            // Add box shadow if needed, remove if not
+                            // border: Border.all(
+                            //   color: asana.isMarked
+                            //       ? ACCENT_COLOR
+                            //       : Colors.transparent,
+                            //   width: 2,
+                            // ),
+                          ),
+                          child: Center(
+                            child: Image(
+                              image: asana.difficulty.icon,
+                              height: DIFFICULTY_ICON_HEIGHT,
+                              width: DIFFICULTY_ICON_WIDTH,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -79,14 +88,32 @@ class GridViewAsanaCard extends StatelessWidget {
             ),
             Container(
               height: CARD_TEXT_HEIGHT,
-              padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 2.0)
+                  .copyWith(top: 2.0),
               child: Center(
-                child: Text(
-                  asana.name.toUpperCase(),
+                child: RichText(
                   textAlign: TextAlign.center,
-                  style: CARD_SUBTITLE.copyWith(height: 1),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: asana.name.toUpperCase(),
+                        style: CARD_SUBTITLE.copyWith(height: 1),
+                        // maxLines: 2,
+                        // overflow: TextOverflow.ellipsis,
+                      ),
+                      if (asana.isCompleted)
+                        const WidgetSpan(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 2.0),
+                            child: Icon(
+                              Icons.check_circle,
+                              color: ACCENT_COLOR,
+                              size: STANDART_ICON_SIZE,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             )

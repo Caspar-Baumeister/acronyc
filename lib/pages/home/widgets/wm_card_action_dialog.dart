@@ -1,23 +1,23 @@
+import 'package:acronyc_app/models/washing_machines_model.dart';
 import 'package:acronyc_app/services/providers/filter_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/asana_model.dart';
 import '../../../services/local_storage/local_storage_service.dart';
 import '../../../utiles/colors.dart';
 import '../../../utiles/enums.dart';
 
-class AsanaOptionDialog extends StatefulWidget {
-  const AsanaOptionDialog({super.key, required this.asana});
+class WmOptionDialog extends StatefulWidget {
+  const WmOptionDialog({super.key, required this.wm});
 
-  final AsanaModel asana;
+  final WashingMachinesModel wm;
 
   @override
-  State<AsanaOptionDialog> createState() => _AsanaOptionDialogState();
+  State<WmOptionDialog> createState() => _WmOptionDialogState();
 }
 
-class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
+class _WmOptionDialogState extends State<WmOptionDialog> {
   late bool previousMarked;
   late bool previousCompleted;
 
@@ -29,12 +29,12 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
 
   updateValues() {
     List<String> previousMarkedList =
-        LocalStorageService.get(Preferences.markedAsanas) ?? [];
+        LocalStorageService.get(Preferences.markedWashingMachines) ?? [];
     List<String> previousCompletedList =
-        LocalStorageService.get(Preferences.completedAsanas) ?? [];
+        LocalStorageService.get(Preferences.completedWashingMachines) ?? [];
     setState(() {
-      previousMarked = previousMarkedList.contains(widget.asana.id);
-      previousCompleted = previousCompletedList.contains(widget.asana.id);
+      previousMarked = previousMarkedList.contains(widget.wm.id);
+      previousCompleted = previousCompletedList.contains(widget.wm.id);
     });
   }
 
@@ -50,7 +50,7 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                 top: Radius.circular(
                     15.0)), // Round corners for the top of the image
             child: Image.asset(
-              widget.asana.img,
+              widget.wm.steps[0].image,
               height: MediaQuery.of(context).size.width * 0.9,
               fit: BoxFit.cover,
             ),
@@ -73,7 +73,7 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.asana.setIsMarked(!previousMarked).then((value) {
+                    widget.wm.setIsMarked(!previousMarked).then((value) {
                       updateValues();
                       Provider.of<FilterProvider>(context, listen: false)
                           .refresh();
@@ -93,7 +93,7 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.asana.setCompleted(!previousCompleted).then((value) {
+                    widget.wm.setCompleted(!previousCompleted).then((value) {
                       updateValues();
 
                       Provider.of<FilterProvider>(context, listen: false)
@@ -101,7 +101,6 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                     });
                   },
                 ),
-                // ... Add more options/icons here
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:acronyc_app/pages/introduction_animation/introduction_animation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,10 +23,9 @@ class AppClass extends StatelessWidget {
         navigatorObservers: [customNavigatorObserver],
         debugShowCheckedModeBanner: false,
         theme: MyThemes.getThemeFromKey(MyThemeKeys.LIGHT),
-        // home: isInitScreen == 1
-        //     ? const HomePage()
-        //     : const IntroductionAnimationScreen(),
-        home: const HomePage(),
+        home: isInitScreen == 1
+            ? const HomePage()
+            : const IntroductionAnimationScreen(),
       ),
     );
   }

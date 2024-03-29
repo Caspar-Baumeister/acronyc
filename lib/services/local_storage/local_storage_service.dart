@@ -1,5 +1,6 @@
-import '../../utiles/enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../utiles/enums.dart';
 
 class LocalStorageService {
   static SharedPreferences? _preferences;
@@ -9,8 +10,6 @@ class LocalStorageService {
 
   static Future<bool> set(Preferences preferenceKey, value) async {
     if (_preferences != null) {
-      print("inside set");
-      print(preferenceKey.toString());
       switch (preferenceKey.getType) {
         case (List<String>):
           return _preferences!.setStringList(preferenceKey.toString(), value);

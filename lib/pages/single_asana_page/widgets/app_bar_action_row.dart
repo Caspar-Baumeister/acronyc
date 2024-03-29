@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:acronyc_app/services/local_storage/local_storage_service.dart';
+import 'package:acronyc_app/services/providers/filter_provider.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/constants.dart';
 import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/asana_model.dart';
 
@@ -67,19 +69,18 @@ class _AppBarActionRowState extends State<AppBarActionRow> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      widget.asana
-                          .setIsMarked(!previousMarked)
-                          .then((value) => updateValues());
+                      widget.asana.setIsMarked(!previousMarked).then((value) {
+                        updateValues();
+                        Provider.of<FilterProvider>(context, listen: false)
+                            .refresh();
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
                         widget.asana.isMarked ? Icons.star : Icons.star_border,
-                        color: widget.asana.isMarked
-                            ? widget.isCollapsing
-                                ? ACCENT_COLOR_LIGHT
-                                : ACCENT_COLOR
-                            : (widget.isCollapsing ? WHITE1 : TEXT_COLOR),
+                        color:
+                            widget.asana.isMarked ? ACCENT_COLOR : TEXT_COLOR,
                         size: STANDART_ICON_SIZE_BIG,
                       ),
                     ),
@@ -88,7 +89,11 @@ class _AppBarActionRowState extends State<AppBarActionRow> {
                     onTap: () {
                       widget.asana
                           .setCompleted(!previousCompleted)
-                          .then((value) => updateValues());
+                          .then((value) {
+                        updateValues();
+                        Provider.of<FilterProvider>(context, listen: false)
+                            .refresh();
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -98,10 +103,8 @@ class _AppBarActionRowState extends State<AppBarActionRow> {
                               : Icons.check_circle_outline,
                           size: STANDART_ICON_SIZE_BIG,
                           color: widget.asana.isCompleted
-                              ? widget.isCollapsing
-                                  ? ACCENT_COLOR_LIGHT
-                                  : ACCENT_COLOR
-                              : (widget.isCollapsing ? WHITE1 : TEXT_COLOR)),
+                              ? ACCENT_COLOR
+                              : TEXT_COLOR),
                     ),
                   ),
                 ],

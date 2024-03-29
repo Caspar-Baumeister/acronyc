@@ -1,8 +1,8 @@
+import 'package:acronyc_app/pages/home/widgets/grid_view_wm_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/custom_app_bar.dart';
 import '../../data/example_washing_machines.dart';
-import '../../pages/home/widgets/grid_view_wm_card.dart';
 import '../../utiles/constants.dart';
 
 class WMSearchPage extends StatelessWidget {
@@ -26,13 +26,10 @@ class WMSearchPage extends StatelessWidget {
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                   childAspectRatio: 0.8,
-                  children: washingMachines
+                  children: exampleWm
                       .map(
-                        (wm) => GridViewWMCard(
-                          imageUrl: wm.steps[0].image,
-                          title: wm.name.toUpperCase(),
-                          wmId: wm.id,
-                          difficulty: wm.diffficulty,
+                        (wm) => GridViewWmCard(
+                          wm: wm,
                         ),
                       )
                       .toList()),

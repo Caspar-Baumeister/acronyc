@@ -4,7 +4,7 @@ const double STANDART_BUTTON_HEIGHT = 50;
 const double STANDART_BUTTON_WIDTH = 300;
 const double SEARCHBAR_HEIGHT = 40;
 const double FILTER_HEIGHT = 40;
-const double CARD_TEXT_HEIGHT = 35;
+const double CARD_TEXT_HEIGHT = 45;
 
 const double EXPANDED_HEIGHT = 200;
 
@@ -20,3 +20,6 @@ const double STANDART_HORIZONTAL_PADDING = 20;
 const double FILTER_ROW_ALIGNMENT_PROPERTY = 9;
 
 const double APPBAR_COLLAPSED_PERCENTAGE = 0.5;
+
+const double DIFFICULTY_ICON_HEIGHT = 40;
+const double DIFFICULTY_ICON_WIDTH = 40;
