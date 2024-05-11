@@ -143,15 +143,14 @@ class AchievedAsanasComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        ForwardIconStateComponent(isActive: true),
-        ForwardIconStateComponent(isActive: true),
-        ForwardIconStateComponent(isActive: false),
-        ForwardIconStateComponent(isActive: false),
-        ForwardIconStateComponent(isActive: false),
-      ],
+      children: asanaIds
+          .map((asanaId) => ForwardIconStateComponent(
+                isActive: Provider.of<UserInputProvider>(context, listen: false)
+                    .isAsanaCompleted(asanaId),
+              ))
+          .toList(),
     );
   }
 }
