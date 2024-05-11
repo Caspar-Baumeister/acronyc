@@ -1,45 +1,20 @@
 import 'package:acronyc_app/models/washing_machines_model.dart';
-import 'package:acronyc_app/services/providers/filter_provider.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/local_storage/local_storage_service.dart';
 import '../../../utiles/colors.dart';
-import '../../../utiles/enums.dart';
 
-class WmOptionDialog extends StatefulWidget {
+class WmOptionDialog extends StatelessWidget {
   const WmOptionDialog({super.key, required this.wm});
 
   final WashingMachinesModel wm;
 
   @override
-  State<WmOptionDialog> createState() => _WmOptionDialogState();
-}
-
-class _WmOptionDialogState extends State<WmOptionDialog> {
-  late bool previousMarked;
-  late bool previousCompleted;
-
-  @override
-  void initState() {
-    super.initState();
-    updateValues();
-  }
-
-  updateValues() {
-    List<String> previousMarkedList =
-        LocalStorageService.get(Preferences.markedWashingMachines) ?? [];
-    List<String> previousCompletedList =
-        LocalStorageService.get(Preferences.completedWashingMachines) ?? [];
-    setState(() {
-      previousMarked = previousMarkedList.contains(widget.wm.id);
-      previousCompleted = previousCompletedList.contains(widget.wm.id);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    UserInputProvider userInputProvider =
+        Provider.of<UserInputProvider>(context);
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -50,7 +25,7 @@ class _WmOptionDialogState extends State<WmOptionDialog> {
                 top: Radius.circular(
                     15.0)), // Round corners for the top of the image
             child: Image.asset(
-              widget.wm.steps[0].image,
+              wm.steps[0].image,
               height: MediaQuery.of(context).size.width * 0.9,
               fit: BoxFit.cover,
             ),
@@ -61,7 +36,7 @@ class _WmOptionDialogState extends State<WmOptionDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
-                  icon: previousMarked
+                  icon: userInputProvider.isWashingMachineMarked(wm.id)
                       ? const Icon(
                           Icons.star,
                           color: ACCENT_COLOR,
@@ -73,15 +48,11 @@ class _WmOptionDialogState extends State<WmOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.wm.setIsMarked(!previousMarked).then((value) {
-                      updateValues();
-                      Provider.of<FilterProvider>(context, listen: false)
-                          .refresh();
-                    });
+                    userInputProvider.toggleMarkedWashingMachine(wm.id);
                   },
                 ),
                 IconButton(
-                  icon: previousCompleted
+                  icon: userInputProvider.isWashingMachineCompleted(wm.id)
                       ? const Icon(
                           Icons.check_circle,
                           color: ACCENT_COLOR,
@@ -93,12 +64,7 @@ class _WmOptionDialogState extends State<WmOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.wm.setCompleted(!previousCompleted).then((value) {
-                      updateValues();
-
-                      Provider.of<FilterProvider>(context, listen: false)
-                          .refresh();
-                    });
+                    userInputProvider.toggleCompletedWashingMachine(wm.id);
                   },
                 ),
               ],

@@ -1,45 +1,20 @@
-import 'package:acronyc_app/services/providers/filter_provider.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/asana_model.dart';
-import '../../../services/local_storage/local_storage_service.dart';
 import '../../../utiles/colors.dart';
-import '../../../utiles/enums.dart';
 
-class AsanaOptionDialog extends StatefulWidget {
+class AsanaOptionDialog extends StatelessWidget {
   const AsanaOptionDialog({super.key, required this.asana});
 
   final AsanaModel asana;
 
   @override
-  State<AsanaOptionDialog> createState() => _AsanaOptionDialogState();
-}
-
-class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
-  late bool previousMarked;
-  late bool previousCompleted;
-
-  @override
-  void initState() {
-    super.initState();
-    updateValues();
-  }
-
-  updateValues() {
-    List<String> previousMarkedList =
-        LocalStorageService.get(Preferences.markedAsanas) ?? [];
-    List<String> previousCompletedList =
-        LocalStorageService.get(Preferences.completedAsanas) ?? [];
-    setState(() {
-      previousMarked = previousMarkedList.contains(widget.asana.id);
-      previousCompleted = previousCompletedList.contains(widget.asana.id);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    UserInputProvider userInputProvider =
+        Provider.of<UserInputProvider>(context);
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -50,7 +25,7 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                 top: Radius.circular(
                     15.0)), // Round corners for the top of the image
             child: Image.asset(
-              widget.asana.img,
+              asana.image,
               height: MediaQuery.of(context).size.width * 0.9,
               fit: BoxFit.cover,
             ),
@@ -61,7 +36,7 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
-                  icon: previousMarked
+                  icon: userInputProvider.isAsanaMarked(asana.id)
                       ? const Icon(
                           Icons.star,
                           color: ACCENT_COLOR,
@@ -73,15 +48,11 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.asana.setIsMarked(!previousMarked).then((value) {
-                      updateValues();
-                      Provider.of<FilterProvider>(context, listen: false)
-                          .refresh();
-                    });
+                    userInputProvider.toggleMarked(asana.id);
                   },
                 ),
                 IconButton(
-                  icon: previousCompleted
+                  icon: userInputProvider.isAsanaCompleted(asana.id)
                       ? const Icon(
                           Icons.check_circle,
                           color: ACCENT_COLOR,
@@ -93,15 +64,9 @@ class _AsanaOptionDialogState extends State<AsanaOptionDialog> {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    widget.asana.setCompleted(!previousCompleted).then((value) {
-                      updateValues();
-
-                      Provider.of<FilterProvider>(context, listen: false)
-                          .refresh();
-                    });
+                    userInputProvider.toggleCompleted(asana.id);
                   },
                 ),
-                // ... Add more options/icons here
               ],
             ),
           ),

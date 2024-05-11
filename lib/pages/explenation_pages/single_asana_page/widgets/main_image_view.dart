@@ -1,8 +1,8 @@
 import 'package:acronyc_app/models/step_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utiles/assets.dart';
-import '../../full_screen_step_page.dart';
+import '../../../../utiles/assets.dart';
+import '../../../full_screen_step_page.dart';
 
 class MainImageView extends StatelessWidget {
   const MainImageView(

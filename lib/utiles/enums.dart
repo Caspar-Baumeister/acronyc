@@ -28,6 +28,20 @@ extension DifficultyExtension on Difficulty {
   }
 }
 
+// parse a string to the difficulty enum
+Difficulty parseDifficulty(String difficulty) {
+  switch (difficulty) {
+    case "easy":
+      return Difficulty.easy;
+    case "medium":
+      return Difficulty.medium;
+    case "hard":
+      return Difficulty.hard;
+    default:
+      return Difficulty.easy;
+  }
+}
+
 // // define a enum for type [L-Basing, Stehend, Beide]
 // enum AcrobaticsType { l_basing, standing, both }
 

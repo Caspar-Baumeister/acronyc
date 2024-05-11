@@ -1,7 +1,9 @@
 import 'package:acronyc_app/models/washing_machines_model.dart';
+import 'package:acronyc_app/pages/explenation_pages/single_wm_page/single_wm_page.dart';
 import 'package:acronyc_app/pages/home/widgets/wm_card_action_dialog.dart';
-import 'package:acronyc_app/pages/single_wm_page/single_wm_page.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utiles/colors.dart';
 import '../../../utiles/constants.dart';
@@ -18,6 +20,8 @@ class GridViewWmCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserInputProvider userInputProvider =
+        Provider.of<UserInputProvider>(context);
     return GestureDetector(
       onLongPress: () => _showPreview(context),
       onTap: () => Navigator.push(
@@ -56,7 +60,8 @@ class GridViewWmCard extends StatelessWidget {
                             shape: BoxShape.circle, // Circular shape
                             // Add box shadow if needed, remove if not
                             border: Border.all(
-                              color: wm.isMarked
+                              color: userInputProvider
+                                      .isWashingMachineMarked(wm.id)
                                   ? ACCENT_COLOR
                                   : Colors.transparent,
                               width: 2,
@@ -73,6 +78,11 @@ class GridViewWmCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Positioned(
+                    top: 3,
+                    left: 3,
+                    child: AchievedAsanasComponent(asanaIds: wm.asanaIds),
+                  )
                 ],
               ),
             ),
@@ -92,7 +102,7 @@ class GridViewWmCard extends StatelessWidget {
                         // maxLines: 2,
                         // overflow: TextOverflow.ellipsis,
                       ),
-                      if (wm.isCompleted)
+                      if (userInputProvider.isWashingMachineCompleted(wm.id))
                         const WidgetSpan(
                           child: Padding(
                             padding: EdgeInsets.only(left: 2.0),
@@ -122,6 +132,43 @@ class GridViewWmCard extends StatelessWidget {
           wm: wm,
         );
       },
+    );
+  }
+}
+
+class AchievedAsanasComponent extends StatelessWidget {
+  const AchievedAsanasComponent({super.key, required this.asanaIds});
+
+  final List<String> asanaIds;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: asanaIds
+          .map((asanaId) => ForwardIconStateComponent(
+                isActive: Provider.of<UserInputProvider>(context, listen: false)
+                    .isAsanaCompleted(asanaId),
+              ))
+          .toList(),
+    );
+  }
+}
+
+class ForwardIconStateComponent extends StatelessWidget {
+  const ForwardIconStateComponent({super.key, required this.isActive});
+
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 10,
+      child: Icon(
+        Icons.arrow_forward_ios_rounded,
+        color: isActive ? ACCENT_COLOR : Colors.grey,
+        size: STANDART_ICON_SIZE,
+      ),
     );
   }
 }

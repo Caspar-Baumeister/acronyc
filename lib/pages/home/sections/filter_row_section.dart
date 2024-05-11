@@ -21,7 +21,7 @@ class FilterRowSection extends StatelessWidget {
           const SizedBox(width: STANDART_HORIZONTAL_PADDING),
           FilterRowBinaryItem(
             title: "Markiert",
-            isActive: asanaSearchProvider.isMarked,
+            isActive: asanaSearchProvider.isMarkedFilter,
             changeActiveFilter: (_) {
               asanaSearchProvider.toggleMarked();
             },
@@ -29,7 +29,7 @@ class FilterRowSection extends StatelessWidget {
           const SizedBox(width: 10),
           FilterRowBinaryItem(
             title: "Nicht Geschafft",
-            isActive: asanaSearchProvider.isNotDone,
+            isActive: asanaSearchProvider.isNotDoneFilter,
             changeActiveFilter: (_) {
               asanaSearchProvider.toggleNotDone();
             },
@@ -106,7 +106,7 @@ class _FilterRowItemState extends State<FilterRowItem> {
     return FilterRowItemContainer(
       isActive: activeFilter != null,
       child: DropdownButton<String>(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
           value: activeFilter,
           hint: Text(
             widget.hintText,

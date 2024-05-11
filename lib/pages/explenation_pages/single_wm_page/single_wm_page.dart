@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:acronyc_app/pages/single_wm_page/widgets/app_bar_actions.dart';
+import 'package:acronyc_app/pages/explenation_pages/single_wm_page/widgets/app_bar_actions.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/helper_functions/get_difficulty_icon.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/washing_machines_model.dart';
-import '../../utiles/constants.dart';
-import '../../utiles/helper_functions/steps_to_map.dart';
-import '../../utiles/text_styles.dart';
+import '../../../models/washing_machines_model.dart';
+import '../../../utiles/constants.dart';
+import '../../../utiles/helper_functions/steps_to_map.dart';
+import '../../../utiles/text_styles.dart';
 import '../single_asana_page/widgets/flow_scroll_view.dart';
 import '../single_asana_page/widgets/image_description_view.dart';
 import '../single_asana_page/widgets/main_image_view.dart';
@@ -45,10 +45,12 @@ class _SingleWmPageState extends State<SingleWmPage> {
         //color: White,
         surfaceTintColor: BACKGROUND_COLOR,
         backgroundColor: BACKGROUND_COLOR,
+        automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
+        titleSpacing: 0,
         title: Row(
           children: [
             Padding(
@@ -58,6 +60,7 @@ class _SingleWmPageState extends State<SingleWmPage> {
             Text(
               widget.wm.name.toUpperCase(),
               style: H14W5,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

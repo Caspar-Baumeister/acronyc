@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../models/transition_model.dart';
 import '../../../utiles/helper_functions/get_difficulty_icon.dart';
 import '../../../utiles/text_styles.dart';
-import '../../single_transition_page/single_transition_page.dart';
+import '../../explenation_pages/single_transition_page/single_transition_page.dart';
 
 class GridViewTransitionCard extends StatelessWidget {
   const GridViewTransitionCard({
@@ -30,7 +30,7 @@ class GridViewTransitionCard extends StatelessWidget {
           children: [
             Expanded(
               child: Image.asset(
-                transition.endAsana.img,
+                transition.endAsana.image,
                 fit: BoxFit.cover,
                 // height: MediaQuery.of(context).size.width,
               ),

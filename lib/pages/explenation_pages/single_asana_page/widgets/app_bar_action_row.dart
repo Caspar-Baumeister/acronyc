@@ -1,16 +1,14 @@
 import 'dart:ui';
 
-import 'package:acronyc_app/services/local_storage/local_storage_service.dart';
-import 'package:acronyc_app/services/providers/filter_provider.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/constants.dart';
-import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/asana_model.dart';
+import '../../../../models/asana_model.dart';
 
-class AppBarActionRow extends StatefulWidget {
+class AppBarActionRow extends StatelessWidget {
   const AppBarActionRow({
     super.key,
     required this.asana,
@@ -21,33 +19,10 @@ class AppBarActionRow extends StatefulWidget {
   final bool isCollapsing;
 
   @override
-  State<AppBarActionRow> createState() => _AppBarActionRowState();
-}
-
-class _AppBarActionRowState extends State<AppBarActionRow> {
-  late bool previousMarked;
-  late bool previousCompleted;
-
-  @override
-  void initState() {
-    super.initState();
-    updateValues();
-  }
-
-  updateValues() {
-    List<String> previousMarkedList =
-        LocalStorageService.get(Preferences.markedAsanas) ?? [];
-    List<String> previousCompletedList =
-        LocalStorageService.get(Preferences.completedAsanas) ?? [];
-    setState(() {
-      previousMarked = previousMarkedList.contains(widget.asana.id);
-      previousCompleted = previousCompletedList.contains(widget.asana.id);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    double blurFactor = widget.isCollapsing ? 0 : 8;
+    UserInputProvider userInputProvider =
+        Provider.of<UserInputProvider>(context);
+    double blurFactor = isCollapsing ? 0 : 8;
     return ClipOval(
       child: Container(
         decoration: const BoxDecoration(
@@ -69,40 +44,33 @@ class _AppBarActionRowState extends State<AppBarActionRow> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      widget.asana.setIsMarked(!previousMarked).then((value) {
-                        updateValues();
-                        Provider.of<FilterProvider>(context, listen: false)
-                            .refresh();
-                      });
+                      userInputProvider.toggleMarked(asana.id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
-                        widget.asana.isMarked ? Icons.star : Icons.star_border,
-                        color:
-                            widget.asana.isMarked ? ACCENT_COLOR : TEXT_COLOR,
+                        userInputProvider.isAsanaMarked(asana.id)
+                            ? Icons.star
+                            : Icons.star_border,
+                        color: userInputProvider.isAsanaMarked(asana.id)
+                            ? ACCENT_COLOR
+                            : TEXT_COLOR,
                         size: STANDART_ICON_SIZE_BIG,
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      widget.asana
-                          .setCompleted(!previousCompleted)
-                          .then((value) {
-                        updateValues();
-                        Provider.of<FilterProvider>(context, listen: false)
-                            .refresh();
-                      });
+                      userInputProvider.toggleCompleted(asana.id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
-                          widget.asana.isCompleted
+                          userInputProvider.isAsanaCompleted(asana.id)
                               ? Icons.check_circle
                               : Icons.check_circle_outline,
                           size: STANDART_ICON_SIZE_BIG,
-                          color: widget.asana.isCompleted
+                          color: userInputProvider.isAsanaCompleted(asana.id)
                               ? ACCENT_COLOR
                               : TEXT_COLOR),
                     ),

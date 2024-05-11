@@ -1,16 +1,16 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:acronyc_app/pages/explenation_pages/single_asana_page/widgets/app_bar_action_row.dart';
 import 'package:acronyc_app/pages/full_screen_asana_page.dart';
-import 'package:acronyc_app/pages/single_asana_page/widgets/app_bar_action_row.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/asana_model.dart';
-import '../../utiles/assets.dart';
-import '../../utiles/constants.dart';
-import '../../utiles/helper_functions/steps_to_map.dart';
-import '../../utiles/text_styles.dart';
+import '../../../models/asana_model.dart';
+import '../../../utiles/assets.dart';
+import '../../../utiles/constants.dart';
+import '../../../utiles/helper_functions/steps_to_map.dart';
+import '../../../utiles/text_styles.dart';
 import 'widgets/flow_scroll_view.dart';
 import 'widgets/image_description_view.dart';
 import 'widgets/main_image_view.dart';
@@ -133,17 +133,17 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
                     if (percentage < APPBAR_COLLAPSED_PERCENTAGE) {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => FullScreenAsanaView(
-                          url: widget.asana.img,
-                          tag: widget.asana.img,
+                          url: widget.asana.image,
+                          tag: widget.asana.image,
                           description: widget.asana.name,
                         ),
                       ));
                     }
                   },
                   child: Hero(
-                    tag: widget.asana.img,
+                    tag: widget.asana.image,
                     child: Image.asset(
-                      widget.asana.img,
+                      widget.asana.image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -199,7 +199,8 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
                     header: "Eingang"),
               ),
               const SizedBox(height: 30),
-              TransitionView(asana: widget.asana)
+              TransitionView(asana: widget.asana),
+              const SizedBox(height: 30),
             ],
           ),
         ),

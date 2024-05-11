@@ -1,4 +1,5 @@
 import 'package:acronyc_app/pages/introduction_animation/introduction_animation_screen.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class AppClass extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => FilterProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => UserInputProvider()),
       ],
       child: MaterialApp(
         navigatorObservers: [customNavigatorObserver],

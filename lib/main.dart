@@ -1,3 +1,4 @@
+import 'package:acronyc_app/data/data_singelton.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,5 +10,7 @@ void main() async {
   LocalStorageService.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int isInitScreen = prefs.getInt("initScreen") ?? 0;
+
+  DataSingelton().initializeData();
   runApp(AppClass(isInitScreen: isInitScreen));
 }
