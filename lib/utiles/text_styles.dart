@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 // make 6 standart text styles with names like H14W5, H16W6, H18W7, H20W8, H24W9, H28W10
 // H - height, W - weight
+const TextStyle H12W5 =
+    TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: TEXT_COLOR);
 const TextStyle H14W5 =
     TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: TEXT_COLOR);
 const TextStyle H16W6 =
@@ -24,7 +26,7 @@ const TextStyle H24W9 =
 
 const TextStyle MAIN_TITLE = H24W9;
 // filter titles
-const TextStyle FILTER_TITLE = H14W5;
+const TextStyle FILTER_TITLE = H12W5;
 
 const TextStyle CARD_SUBTITLE = H14W5;
 

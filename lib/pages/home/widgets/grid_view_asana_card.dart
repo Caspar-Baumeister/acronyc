@@ -1,13 +1,14 @@
 import 'package:acronyc_app/pages/home/widgets/asana_card_action_dialog.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../data/example_asanas.dart';
 import '../../../models/asana_model.dart';
 import '../../../utiles/colors.dart';
 import '../../../utiles/constants.dart';
 import '../../../utiles/helper_functions/get_difficulty_icon.dart';
 import '../../../utiles/text_styles.dart';
-import '../../single_asana_page/single_asana_page.dart';
+import '../../explenation_pages/single_asana_page/single_asana_page.dart';
 
 class GridViewAsanaCard extends StatelessWidget {
   const GridViewAsanaCard({
@@ -25,7 +26,7 @@ class GridViewAsanaCard extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => SingleAsanaPage(
-                  asana: getAsanaFromId(asana.id),
+                  asana: asana,
                 )),
       ),
       child: ClipRRect(
@@ -36,20 +37,23 @@ class GridViewAsanaCard extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color:
-                            asana.isMarked ? ACCENT_COLOR : Colors.transparent,
-                        width: 4,
+                  Consumer<UserInputProvider>(
+                    builder: (context, userInputProvider, _) => Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: userInputProvider.isAsanaMarked(asana.id)
+                              ? ACCENT_COLOR
+                              : Colors.transparent,
+                          width: 4,
+                        ),
                       ),
-                    ),
-                    child: Image.asset(
-                      asana.img,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                      // height: MediaQuery.of(context).size.width,
+                      child: Image.asset(
+                        asana.image,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                        // height: MediaQuery.of(context).size.width,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -64,13 +68,6 @@ class GridViewAsanaCard extends StatelessWidget {
                             color: const Color.fromARGB(255, 255, 255, 255)
                                 .withOpacity(0.7), // Subdued color
                             shape: BoxShape.circle, // Circular shape
-                            // Add box shadow if needed, remove if not
-                            // border: Border.all(
-                            //   color: asana.isMarked
-                            //       ? ACCENT_COLOR
-                            //       : Colors.transparent,
-                            //   width: 2,
-                            // ),
                           ),
                           child: Center(
                             child: Image(
@@ -91,28 +88,28 @@ class GridViewAsanaCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 2.0)
                   .copyWith(top: 2.0),
               child: Center(
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: asana.name.toUpperCase(),
-                        style: CARD_SUBTITLE.copyWith(height: 1),
-                        // maxLines: 2,
-                        // overflow: TextOverflow.ellipsis,
-                      ),
-                      if (asana.isCompleted)
-                        const WidgetSpan(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 2.0),
-                            child: Icon(
-                              Icons.check_circle,
-                              color: ACCENT_COLOR,
-                              size: STANDART_ICON_SIZE,
+                child: Consumer<UserInputProvider>(
+                  builder: (context, userInputProvider, _) => RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: asana.name.toUpperCase(),
+                          style: CARD_SUBTITLE.copyWith(height: 1),
+                        ),
+                        if (userInputProvider.isAsanaCompleted(asana.id))
+                          const WidgetSpan(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 2.0),
+                              child: Icon(
+                                Icons.check_circle,
+                                color: ACCENT_COLOR,
+                                size: STANDART_ICON_SIZE,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

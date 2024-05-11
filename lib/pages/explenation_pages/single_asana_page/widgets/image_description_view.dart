@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utiles/text_styles.dart';
+import '../../../../utiles/text_styles.dart';
 
 class ImageDescriptionView extends StatelessWidget {
   const ImageDescriptionView(

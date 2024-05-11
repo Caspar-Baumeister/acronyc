@@ -1,8 +1,8 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utiles/colors.dart';
-import '../../../utiles/constants.dart';
+import '../../../../utiles/colors.dart';
+import '../../../../utiles/constants.dart';
 
 class FlowScrollView extends StatelessWidget {
   const FlowScrollView(
