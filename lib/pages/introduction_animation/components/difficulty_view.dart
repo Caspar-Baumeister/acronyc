@@ -4,10 +4,10 @@ import '../../../utiles/assets.dart';
 import '../../../utiles/enums.dart';
 import 'difficulty_card.dart';
 
-class RelaxView extends StatelessWidget {
+class DifficultyView extends StatelessWidget {
   final AnimationController animationController;
 
-  const RelaxView({Key? key, required this.animationController})
+  const DifficultyView({Key? key, required this.animationController})
       : super(key: key);
 
   @override
@@ -36,18 +36,6 @@ class RelaxView extends StatelessWidget {
         ),
       ),
     );
-    // final textAnimation =
-    //     Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-2, 0))
-    //         .animate(
-    //   CurvedAnimation(
-    //     parent: animationController,
-    //     curve: const Interval(
-    //       0.2,
-    //       0.4,
-    //       curve: Curves.fastOutSlowIn,
-    //     ),
-    //   ),
-    // );
     final imageAnimation =
         Tween<Offset>(begin: const Offset(0, 0), end: const Offset(-4, 0))
             .animate(

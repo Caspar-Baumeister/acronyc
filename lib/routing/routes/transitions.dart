@@ -1,0 +1,164 @@
+import 'package:flutter/widgets.dart';
+
+//https://medium.com/@agungsurya/create-custom-router-transition-in-flutter-using-pageroutebuilder-73a1a9c4a171
+
+class Transitions {
+  const Transitions._();
+
+  static const RouteTransitionsBuilder slideRight = _slideRight;
+
+  static Widget _slideRight(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(-1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder slideLeft = _slideLeft;
+
+  static Widget _slideLeft(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder slideRightWithFade = _slideRightWithFade;
+
+  static Widget _slideRightWithFade(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(-1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: FadeTransition(opacity: animation, child: child),
+    );
+  }
+
+  static const RouteTransitionsBuilder slideLeftWithFade = _slideLeftWithFade;
+
+  static Widget _slideLeftWithFade(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(1.0, 0.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: FadeTransition(opacity: animation, child: child),
+    );
+  }
+
+  static const RouteTransitionsBuilder slideTop = _slideTop;
+
+  static Widget _slideTop(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0.0, -1.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder slideBottom = _slideBottom;
+
+  static Widget _slideBottom(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0.0, 1.0),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder fadeIn = _fadeIn;
+
+  static Widget _fadeIn(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return FadeTransition(opacity: animation, child: child);
+  }
+
+  static const RouteTransitionsBuilder zoomIn = _zoomIn;
+
+  static Widget _zoomIn(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return ScaleTransition(scale: animation, child: child);
+  }
+
+  static const RouteTransitionsBuilder noTransition = _noTransition;
+
+  static Widget _noTransition(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return child;
+  }
+
+  static const RouteTransitionsBuilder pageFlipWithFade = _pageFlipWithFade;
+
+  static Widget _pageFlipWithFade(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final angle =
+            animation.value * 3.1416; // Rotate from 0 to pi (180 degrees)
+        final transform = Matrix4.identity()
+          ..setEntry(3, 2, 0.001) // Perspective
+          ..rotateY(angle);
+
+        return Opacity(
+          opacity: animation.value,
+          child: Transform(
+            transform: transform,
+            alignment: Alignment.centerLeft,
+            child: child,
+          ),
+        );
+      },
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder pageFlip = _pageFlip;
+
+  static Widget _pageFlip(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final angle =
+            animation.value * 3.1416; // Rotate from 0 to pi (180 degrees)
+        final transform = Matrix4.identity()
+          ..setEntry(3, 2, 0.001) // Perspective
+          ..rotateY(angle);
+
+        return Transform(
+          transform: transform,
+          alignment: Alignment.centerLeft,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+}
