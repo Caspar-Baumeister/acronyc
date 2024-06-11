@@ -59,8 +59,11 @@ class MyThemes {
       selectionHandleColor: ACCENT_COLOR,
     ),
     brightness: Brightness.light,
-    colorScheme:
-        ColorScheme.fromSwatch().copyWith(background: BACKGROUND_COLOR),
+    colorScheme: const ColorScheme.light(
+        primary: ACCENT_COLOR,
+        secondary: ACCENT_COLOR,
+        background: BACKGROUND_COLOR,
+        primaryContainer: BACKGROUND_COLOR),
   );
 
   // maybe for outdoor

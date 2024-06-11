@@ -1,4 +1,4 @@
-import 'package:acronyc_app/data/data_singelton.dart';
+import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

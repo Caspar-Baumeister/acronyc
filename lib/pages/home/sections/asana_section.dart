@@ -1,7 +1,7 @@
-import 'package:acronyc_app/data/data_singelton.dart';
 import 'package:acronyc_app/models/asana_model.dart';
+import 'package:acronyc_app/pages/home/sections/base_grid_view.dart';
+import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
-import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,22 +17,14 @@ class AsanaSection extends StatelessWidget {
         Provider.of<UserInputProvider>(context);
     FilterProvider filterProvider = Provider.of<FilterProvider>(context);
 
-    return Consumer<FilterProvider>(
-      builder: (context, asanaSearchProvider, _) => GridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
-          childAspectRatio: 0.8,
-          children: getAsanas(userInputProvider, filterProvider)
-              .map(
-                (asana) => GridViewAsanaCard(
-                  asana: asana,
-                ),
-              )
-              .toList()),
-    );
+    return BaseGridViewSection(
+        children: getAsanas(userInputProvider, filterProvider)
+            .map(
+              (asana) => GridViewAsanaCard(
+                asana: asana,
+              ),
+            )
+            .toList());
   }
 
   List<AsanaModel> getAsanas(
@@ -41,7 +33,6 @@ class AsanaSection extends StatelessWidget {
     List<AsanaModel> asanas = dataSingelton.asanas;
 
     String search = filterProvider.search;
-    Difficulty activeDifficulty = filterProvider.activeDifficulty;
     bool isMarkedFilter = filterProvider.isMarkedFilter;
     bool isNotDoneFilter = filterProvider.isNotDoneFilter;
 
@@ -53,24 +44,17 @@ class AsanaSection extends StatelessWidget {
           .toList();
     }
 
-    // apply difficulty filter
-    if (activeDifficulty != Difficulty.all) {
-      asanas = asanas
-          .where((asana) => asana.difficulty == activeDifficulty)
-          .toList();
-    }
-
     // apply marked filter
     if (isMarkedFilter) {
       asanas = asanas
-          .where((asana) => userInputProvider.isAsanaMarked(asana.id))
+          .where((asana) => userInputProvider.isAsanaMarked(asana.name))
           .toList();
     }
 
     // apply done filter
     if (isNotDoneFilter) {
       asanas = asanas
-          .where((asana) => !userInputProvider.isAsanaCompleted(asana.id))
+          .where((asana) => !userInputProvider.isAsanaCompleted(asana.name))
           .toList();
     }
 

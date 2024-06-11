@@ -1,8 +1,9 @@
 import 'package:acronyc_app/models/step_model.dart';
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utiles/assets.dart';
-import '../../../full_screen_step_page.dart';
+import '../../../full_screen_pages/full_screen_step_page.dart';
 
 class MainImageView extends StatelessWidget {
   const MainImageView(
@@ -39,10 +40,9 @@ class MainImageView extends StatelessWidget {
             },
             child: Hero(
               tag: activeImage,
-              child: Image.asset(
-                activeImage,
-                fit: BoxFit.cover,
-                width: double.infinity,
+              child: CustomCachedNetworkImage(
+                imageUrl: activeImage,
+                height: MediaQuery.of(context).size.width,
               ),
             ),
           ),

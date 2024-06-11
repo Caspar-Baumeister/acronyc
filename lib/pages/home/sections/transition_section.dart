@@ -1,6 +1,6 @@
-import 'package:acronyc_app/models/washing_machines_model.dart';
+import 'package:acronyc_app/models/transition_model.dart';
 import 'package:acronyc_app/pages/home/sections/base_grid_view.dart';
-import 'package:acronyc_app/pages/home/widgets/grid_view_wm_card.dart';
+import 'package:acronyc_app/pages/home/widgets/grid_view_transition_card.dart';
 import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:acronyc_app/services/providers/filter_provider.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
@@ -8,8 +8,8 @@ import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WmSection extends StatelessWidget {
-  const WmSection({super.key});
+class TransitionSection extends StatelessWidget {
+  const TransitionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,17 @@ class WmSection extends StatelessWidget {
         Provider.of<UserInputProvider>(context);
     FilterProvider filterProvider = Provider.of<FilterProvider>(context);
     return BaseGridViewSection(
-        children: getWashingMachines(userInputProvider, filterProvider)
+        children: getTransitions(userInputProvider, filterProvider)
             .map(
-              (wm) => GridViewWmCard(wm: wm),
+              (transition) => GridViewTransitionCard(transition: transition),
             )
             .toList());
   }
 
-  List<WashingMachinesModel> getWashingMachines(
+  List<TransitionModel> getTransitions(
       UserInputProvider userInputProvider, FilterProvider filterProvider) {
     final DataSingelton dataSingelton = DataSingelton();
-    List<WashingMachinesModel> wm = dataSingelton.washingMachines;
+    List<TransitionModel> transitions = dataSingelton.transitions;
 
     String search = filterProvider.search;
     Difficulty activeDifficulty = filterProvider.activeDifficulty;
@@ -36,30 +36,35 @@ class WmSection extends StatelessWidget {
 
     // apply search query
     if (search.isNotEmpty) {
-      wm = wm
-          .where((wm) => wm.name.toLowerCase().contains(search.toLowerCase()))
+      transitions = transitions
+          .where((transition) =>
+              transition.id.toLowerCase().contains(search.toLowerCase()))
           .toList();
     }
 
     // apply difficulty filter
     if (activeDifficulty != Difficulty.all) {
-      wm = wm.where((wm) => wm.difficulty == activeDifficulty).toList();
-    }
-
-    // apply marked filter
-    if (isMarkedFilter) {
-      wm = wm
-          .where((wm) => userInputProvider.isWashingMachineMarked(wm.name))
+      transitions = transitions
+          .where((transitions) => transitions.difficulty == activeDifficulty)
           .toList();
     }
 
-    // apply done filter
-    if (isNotDoneFilter) {
-      wm = wm
-          .where((wm) => !userInputProvider.isWashingMachineCompleted(wm.name))
-          .toList();
-    }
+    // // apply marked filter
+    // if (isMarkedFilter) {
+    //   transitions = transitions
+    //       .where((transitions) =>
+    //           userInputProvider.isWashingMachineMarked(transitions.name))
+    //       .toList();
+    // }
 
-    return wm;
+    // // apply done filter
+    // if (isNotDoneFilter) {
+    //   transitions = transitions
+    //       .where((transitions) =>
+    //           !userInputProvider.isWashingMachineCompleted(transitions.name))
+    //       .toList();
+    // }
+
+    return transitions;
   }
 }

@@ -1,7 +1,11 @@
+import 'package:acronyc_app/pages/home/widgets/card_difficulty_widget.dart';
+import 'package:acronyc_app/services/providers/user_input_provider.dart';
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
+import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/transition_model.dart';
-import '../../../utiles/helper_functions/get_difficulty_icon.dart';
 import '../../../utiles/text_styles.dart';
 import '../../explenation_pages/single_transition_page/single_transition_page.dart';
 
@@ -15,6 +19,8 @@ class GridViewTransitionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserInputProvider userInputProvider =
+        Provider.of<UserInputProvider>(context);
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -23,42 +29,66 @@ class GridViewTransitionCard extends StatelessWidget {
                   transition: transition,
                 )),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: Image.asset(
-                transition.endAsana.image,
-                fit: BoxFit.cover,
-                // height: MediaQuery.of(context).size.width,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      transition.endAsana.name.toUpperCase(),
-                      style: H14W5,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                CustomCachedNetworkImage(
+                  imageUrl: transition.steps.first.image,
+
+                  // height: MediaQuery.of(context).size.width,
+                ),
+                Positioned(
+                  top: 3,
+                  right: 3,
+                  child: ClipOval(
+                    child: GestureDetector(
+                      onTap: () {}, // => _showPreview(context),
+                      child: CardDifficultyWidget(
+                        icon: transition.difficulty.icon,
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Image(
-                    image: transition.difficulty.icon,
-                    height: 30,
-                    width: 30,
-                  ),
-                ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 2.0).copyWith(top: 2.0),
+            child: Center(
+              // richtext with check icon and text
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          '${transition.startAsanaName} > ${transition.endAsanaName}',
+                      style: CARD_SUBTITLE.copyWith(height: 1),
+                      // maxLines: 2,
+                      // overflow: TextOverflow.ellipsis,
+                    ),
+                    // TODO add completed
+                    // if (userInputProvider.isWashingMachineCompleted(transition.name))
+                    //   const WidgetSpan(
+                    //     child: Padding(
+                    //       padding: EdgeInsets.only(left: 2.0),
+                    //       child: Icon(
+                    //         Icons.check_circle,
+                    //         color: ACCENT_COLOR,
+                    //         size: STANDART_ICON_SIZE,
+                    //       ),
+                    //     ),
+                    //   ),
+                  ],
+                ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

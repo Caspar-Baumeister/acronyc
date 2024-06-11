@@ -1,4 +1,6 @@
 // define a enum for difficulty [Beginner, Intermediate, Fortgeschritten, Alle]
+import 'package:acronyc_app/utiles/assets.dart';
+import 'package:flutter/material.dart';
 
 enum Difficulty { easy, medium, hard, all }
 
@@ -42,27 +44,21 @@ Difficulty parseDifficulty(String difficulty) {
   }
 }
 
-// // define a enum for type [L-Basing, Stehend, Beide]
-// enum AcrobaticsType { l_basing, standing, both }
-
-// // define extension for type
-
-// extension AcrobaticsTypeExtension on AcrobaticsType {
-//   String get name {
-//     switch (this) {
-//       case AcrobaticsType.l_basing:
-//         return "L-Basing";
-//       case AcrobaticsType.standing:
-//         return "Stehend";
-//       case AcrobaticsType.both:
-//         return "Beide";
-//       default:
-//         return "Beide";
-//     }
-//   }
-// }
-
-// enum for preferences
+// extension for Difficulty enum to get the icon
+extension DifficultyIconExtension on Difficulty {
+  AssetImage get icon {
+    switch (this) {
+      case Difficulty.easy:
+        return Assets.easy;
+      case Difficulty.medium:
+        return Assets.medium;
+      case Difficulty.hard:
+        return Assets.hard;
+      default:
+        return Assets.hard;
+    }
+  }
+}
 
 enum Preferences {
   markedAsanas,

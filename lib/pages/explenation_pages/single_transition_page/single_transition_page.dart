@@ -1,7 +1,7 @@
 import 'package:acronyc_app/pages/explenation_pages/single_transition_page/single_transition_body.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/constants.dart';
-import 'package:acronyc_app/utiles/helper_functions/get_difficulty_icon.dart';
+import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/transition_model.dart';

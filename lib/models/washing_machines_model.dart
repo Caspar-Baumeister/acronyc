@@ -1,28 +1,39 @@
+import 'package:acronyc_app/data/wms/wm_steps_description.dart';
+import 'package:acronyc_app/data/wms/wm_steps_images.dart';
+
 import '../utiles/enums.dart';
 import 'step_model.dart';
 
 class WashingMachinesModel {
-  final String id;
-  final List<String> asanaIds;
+  final List<String> asanas;
   final String name;
   final List<StepModel> steps;
   final Difficulty difficulty;
 
   WashingMachinesModel({
-    required this.id,
-    required this.asanaIds,
+    required this.asanas,
     required this.name,
     required this.steps,
     required this.difficulty,
   });
 
   factory WashingMachinesModel.fromJson(Map<String, dynamic> json) {
+    List<StepModel> steps = [];
+    try {
+      wmImages[json['name']]!.forEach((int index, String image) {
+        steps.add(StepModel.fromJson({
+          'image': image,
+          'description': wmStepsDescription[json['name']]![index],
+        }));
+      });
+    } catch (e) {
+      print(e);
+      print(StackTrace.current);
+    }
     return WashingMachinesModel(
-      id: json['id'],
-      asanaIds: List<String>.from(json['asana_ids']),
+      asanas: List<String>.from(json['asanas']),
       name: json['name'],
-      steps: List<StepModel>.from(
-          json['steps']?.map((x) => StepModel.fromJson(x)) ?? []),
+      steps: steps,
       difficulty: parseDifficulty(json['difficulty']),
     );
   }

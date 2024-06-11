@@ -86,8 +86,6 @@ class WelcomeView extends StatelessWidget {
                     EdgeInsets.only(left: 64, right: 64, bottom: 16, top: 16),
                 child: Text(
                   """Sobald die ersten Steps, die ersten Grundelemente des Acroyogas, erlernt sind, können sich Flyer und Base auf das freie und kreative Spiel der Bewegung einlassen, um neue Bewegungsmöglichkeiten zu entdecken.
-Je mehr Techniken dann von Flyer und Base beherrscht werden, desto größere Freiheiten eröffnen sich zugleich für beide. Jetzt können sie sich in spieleri- scher Leichtigkeit aufeinander einlassen. Dadurch entsteht ein tiefes Vertrauen und etwas Neues und Einzigartiges wird erschaffen.
-Diese tiefe Verbindung ist der Schlüssel, um die Magie des Acroyogas zu erleben.
 Ich wünsche euch viel Spaß beim Fliegen!""",
                   textAlign: TextAlign.start,
                 ),

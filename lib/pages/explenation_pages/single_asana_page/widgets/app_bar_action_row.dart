@@ -44,15 +44,15 @@ class AppBarActionRow extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      userInputProvider.toggleMarked(asana.id);
+                      userInputProvider.toggleMarked(asana.name);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
-                        userInputProvider.isAsanaMarked(asana.id)
+                        userInputProvider.isAsanaMarked(asana.name)
                             ? Icons.star
                             : Icons.star_border,
-                        color: userInputProvider.isAsanaMarked(asana.id)
+                        color: userInputProvider.isAsanaMarked(asana.name)
                             ? ACCENT_COLOR
                             : TEXT_COLOR,
                         size: STANDART_ICON_SIZE_BIG,
@@ -61,16 +61,16 @@ class AppBarActionRow extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      userInputProvider.toggleCompleted(asana.id);
+                      userInputProvider.toggleCompleted(asana.name);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
-                          userInputProvider.isAsanaCompleted(asana.id)
+                          userInputProvider.isAsanaCompleted(asana.name)
                               ? Icons.check_circle
                               : Icons.check_circle_outline,
                           size: STANDART_ICON_SIZE_BIG,
-                          color: userInputProvider.isAsanaCompleted(asana.id)
+                          color: userInputProvider.isAsanaCompleted(asana.name)
                               ? ACCENT_COLOR
                               : TEXT_COLOR),
                     ),

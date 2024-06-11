@@ -1,3 +1,4 @@
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 
@@ -43,15 +44,15 @@ class FlowScrollView extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => setIndex(i),
                         child: i == index
-                            ? Image.asset(
-                                activeImages[i],
+                            ? CustomCachedNetworkImage(
+                                imageUrl: activeImages[i],
                                 width: FLOW_SLIDER_SINGLE_IMAGE_WIDTH,
                               )
                             : Opacity(
                                 opacity:
                                     0.5, // You can adjust this value as needed
-                                child: Image.asset(
-                                  activeImages[i],
+                                child: CustomCachedNetworkImage(
+                                  imageUrl: activeImages[i],
                                   width: FLOW_SLIDER_SINGLE_IMAGE_WIDTH,
                                 ),
                               ),

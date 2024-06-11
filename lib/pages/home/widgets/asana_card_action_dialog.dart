@@ -1,5 +1,6 @@
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,8 @@ class AsanaOptionDialog extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(
                     15.0)), // Round corners for the top of the image
-            child: Image.asset(
-              asana.image,
+            child: CustomCachedNetworkImage(
+              imageUrl: asana.image,
               height: MediaQuery.of(context).size.width * 0.9,
               fit: BoxFit.cover,
             ),
@@ -36,7 +37,7 @@ class AsanaOptionDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
-                  icon: userInputProvider.isAsanaMarked(asana.id)
+                  icon: userInputProvider.isAsanaMarked(asana.name)
                       ? const Icon(
                           Icons.star,
                           color: ACCENT_COLOR,
@@ -48,11 +49,11 @@ class AsanaOptionDialog extends StatelessWidget {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    userInputProvider.toggleMarked(asana.id);
+                    userInputProvider.toggleMarked(asana.name);
                   },
                 ),
                 IconButton(
-                  icon: userInputProvider.isAsanaCompleted(asana.id)
+                  icon: userInputProvider.isAsanaCompleted(asana.name)
                       ? const Icon(
                           Icons.check_circle,
                           color: ACCENT_COLOR,
@@ -64,7 +65,7 @@ class AsanaOptionDialog extends StatelessWidget {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    userInputProvider.toggleCompleted(asana.id);
+                    userInputProvider.toggleCompleted(asana.name);
                   },
                 ),
               ],

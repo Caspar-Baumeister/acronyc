@@ -1,5 +1,6 @@
 import 'package:acronyc_app/routing/routes/page_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/care_view.dart';
 import 'components/center_next_button.dart';
@@ -114,7 +115,7 @@ class IntroductionAnimationScreenState
 
   void _signUpClick() async {
     Navigator.of(context).push(HomePageRoute());
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setInt("initScreen", 1);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("initScreen", 1);
   }
 }

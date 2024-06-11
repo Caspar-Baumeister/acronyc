@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:acronyc_app/pages/explenation_pages/single_wm_page/widgets/app_bar_actions.dart';
 import 'package:acronyc_app/utiles/colors.dart';
-import 'package:acronyc_app/utiles/helper_functions/get_difficulty_icon.dart';
+import 'package:acronyc_app/utiles/enums.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/washing_machines_model.dart';

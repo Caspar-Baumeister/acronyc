@@ -1,6 +1,7 @@
 import 'package:acronyc_app/models/washing_machines_model.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,8 @@ class WmOptionDialog extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(
                     15.0)), // Round corners for the top of the image
-            child: Image.asset(
-              wm.steps[0].image,
+            child: CustomCachedNetworkImage(
+              imageUrl: wm.steps.last.image,
               height: MediaQuery.of(context).size.width * 0.9,
               fit: BoxFit.cover,
             ),
@@ -36,7 +37,7 @@ class WmOptionDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
-                  icon: userInputProvider.isWashingMachineMarked(wm.id)
+                  icon: userInputProvider.isWashingMachineMarked(wm.name)
                       ? const Icon(
                           Icons.star,
                           color: ACCENT_COLOR,
@@ -48,11 +49,11 @@ class WmOptionDialog extends StatelessWidget {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    userInputProvider.toggleMarkedWashingMachine(wm.id);
+                    userInputProvider.toggleMarkedWashingMachine(wm.name);
                   },
                 ),
                 IconButton(
-                  icon: userInputProvider.isWashingMachineCompleted(wm.id)
+                  icon: userInputProvider.isWashingMachineCompleted(wm.name)
                       ? const Icon(
                           Icons.check_circle,
                           color: ACCENT_COLOR,
@@ -64,7 +65,7 @@ class WmOptionDialog extends StatelessWidget {
                           size: STANDART_ICON_SIZE_BIG,
                         ),
                   onPressed: () {
-                    userInputProvider.toggleCompletedWashingMachine(wm.id);
+                    userInputProvider.toggleCompletedWashingMachine(wm.name);
                   },
                 ),
               ],

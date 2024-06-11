@@ -27,8 +27,9 @@ class FilterRowSection extends StatelessWidget {
             },
           ),
           const SizedBox(width: 10),
+          // TODO offen, geschafft auswählen
           FilterRowBinaryItem(
-            title: "Nicht Geschafft",
+            title: "Offen",
             isActive: asanaSearchProvider.isNotDoneFilter,
             changeActiveFilter: (_) {
               asanaSearchProvider.toggleNotDone();
@@ -52,6 +53,14 @@ class FilterRowSection extends StatelessWidget {
                 );
               }
               return null;
+            },
+          ),
+          const SizedBox(width: 10),
+          FilterRowBinaryItem(
+            title: "Herruntergeladen",
+            isActive: asanaSearchProvider.isMarkedFilter,
+            changeActiveFilter: (_) {
+              asanaSearchProvider.toggleMarked();
             },
           ),
           // const SizedBox(width: 10),

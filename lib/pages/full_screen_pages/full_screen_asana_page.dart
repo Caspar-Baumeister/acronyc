@@ -1,4 +1,5 @@
 import 'package:acronyc_app/utiles/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -58,7 +59,7 @@ class FullScreenAsanaView extends StatelessWidget {
                     ),
                     pageOptions: <PhotoViewGalleryPageOptions>[
                       PhotoViewGalleryPageOptions(
-                        imageProvider: AssetImage(url),
+                        imageProvider: CachedNetworkImageProvider(url),
                         minScale: PhotoViewComputedScale.contained,
                         maxScale: PhotoViewComputedScale.covered * 2,
                       ),
@@ -66,14 +67,6 @@ class FullScreenAsanaView extends StatelessWidget {
                   ),
                 ),
               ),
-              // Container(
-              //   height: 200,
-              //   // color: GREEN,
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: Center(
-              //       child:
-              //           Text(description ?? "", style: STANDART_DESCRIPTION)),
-              // ),
             ],
           ),
         ),

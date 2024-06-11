@@ -2,12 +2,12 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:acronyc_app/pages/explenation_pages/single_asana_page/widgets/app_bar_action_row.dart';
-import 'package:acronyc_app/pages/full_screen_asana_page.dart';
+import 'package:acronyc_app/pages/full_screen_pages/full_screen_asana_page.dart';
 import 'package:acronyc_app/utiles/colors.dart';
+import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/asana_model.dart';
-import '../../../utiles/assets.dart';
 import '../../../utiles/constants.dart';
 import '../../../utiles/helper_functions/steps_to_map.dart';
 import '../../../utiles/text_styles.dart';
@@ -142,9 +142,8 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
                   },
                   child: Hero(
                     tag: widget.asana.image,
-                    child: Image.asset(
-                      widget.asana.image,
-                      fit: BoxFit.cover,
+                    child: CustomCachedNetworkImage(
+                      imageUrl: widget.asana.image,
                     ),
                   ),
                 );
@@ -157,20 +156,10 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Image(image: Assets.easy),
-                    ),
-                    Flexible(
-                      child: Text(
-                        widget.asana.name.toUpperCase(),
-                        style: SUB_TITLE,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  widget.asana.name.toUpperCase(),
+                  style: SUB_TITLE,
+                  maxLines: 2,
                 ),
               ),
               SizedBox(
@@ -214,17 +203,16 @@ class BlurIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.transparent, // Subdued color
-          shape: BoxShape.circle, // Circular shape
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-              sigmaX: 8, sigmaY: 8), // Adjust blur values as needed
-          child: GestureDetector(
-            onTap: () => Navigator.pop(context),
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: ClipOval(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.transparent, // Subdued color
+            shape: BoxShape.circle, // Circular shape
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
             child: const Padding(
               padding: EdgeInsets.only(left: 8.0),
               child: Icon(

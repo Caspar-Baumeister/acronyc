@@ -1,4 +1,4 @@
-import 'package:acronyc_app/data/data_json.dart';
+import 'package:acronyc_app/data/all_data.dart';
 import 'package:acronyc_app/models/asana_model.dart';
 import 'package:acronyc_app/models/transition_model.dart';
 import 'package:acronyc_app/models/washing_machines_model.dart';
@@ -14,13 +14,13 @@ class DataSingelton {
 
   void initializeData() {
     try {
-      asanas = dataJson['asanas']!
+      asanas = allData['asanas']!
           .map<AsanaModel>((asana) => AsanaModel.fromJson(asana))
           .toList();
-      washingMachines = dataJson['washing_machines']!
+      washingMachines = allData['washing_machines']!
           .map<WashingMachinesModel>((wm) => WashingMachinesModel.fromJson(wm))
           .toList();
-      transitions = dataJson['transitions']!
+      transitions = allData['transitions']!
           .map<TransitionModel>(
               (transition) => TransitionModel.fromJson(transition))
           .toList();
@@ -30,12 +30,12 @@ class DataSingelton {
     }
   }
 
-  AsanaModel getAsanaFromId(String id) {
-    return asanas.firstWhere((element) => element.id == id);
+  AsanaModel getAsanaFromName(String name) {
+    return asanas.firstWhere((element) => element.name == name);
   }
 
-  WashingMachinesModel getWashingMachineFromId(String id) {
-    return washingMachines.firstWhere((element) => element.id == id);
+  WashingMachinesModel getWashingMachineFromId(String name) {
+    return washingMachines.firstWhere((element) => element.name == name);
   }
 
   TransitionModel getTransitionFromId(String id) {
@@ -43,6 +43,8 @@ class DataSingelton {
   }
 
   List<TransitionModel> getTransitionsFromAsanaId(String id) {
-    return transitions.where((element) => element.startAsanaId == id).toList();
+    return transitions
+        .where((element) => element.startAsanaName == id)
+        .toList();
   }
 }

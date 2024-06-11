@@ -25,15 +25,15 @@ class AppBarActions extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              userInputProvider.toggleMarkedWashingMachine(wm.id);
+              userInputProvider.toggleMarkedWashingMachine(wm.name);
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Icon(
-                userInputProvider.isWashingMachineMarked(wm.id)
+                userInputProvider.isWashingMachineMarked(wm.name)
                     ? Icons.star
                     : Icons.star_border,
-                color: userInputProvider.isWashingMachineMarked(wm.id)
+                color: userInputProvider.isWashingMachineMarked(wm.name)
                     ? ACCENT_COLOR
                     : TEXT_COLOR,
                 size: STANDART_ICON_SIZE_BIG,
@@ -42,15 +42,15 @@ class AppBarActions extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              userInputProvider.toggleCompletedWashingMachine(wm.id);
+              userInputProvider.toggleCompletedWashingMachine(wm.name);
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Icon(
-                userInputProvider.isWashingMachineCompleted(wm.id)
+                userInputProvider.isWashingMachineCompleted(wm.name)
                     ? Icons.check_circle
                     : Icons.check_circle_outline,
-                color: userInputProvider.isWashingMachineCompleted(wm.id)
+                color: userInputProvider.isWashingMachineCompleted(wm.name)
                     ? ACCENT_COLOR
                     : TEXT_COLOR,
                 size: STANDART_ICON_SIZE_BIG,

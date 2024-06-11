@@ -49,7 +49,7 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: TextField(
-        autofocus: true,
+        autofocus: false,
         textInputAction: TextInputAction.search,
 
         controller: controller,
@@ -73,6 +73,7 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
                   },
                 )
               : null,
+
           hintText: widget.hintText,
           hintStyle: const TextStyle(color: TEXT_COLOR_LIGHT),
           border: InputBorder.none,

@@ -1,3 +1,4 @@
+import 'package:acronyc_app/pages/home/sections/transition_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 2,
+        length: 3,
         child: SafeArea(
           child: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
@@ -44,11 +45,6 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // const SizedBox(width: 10),
-                                // Filterbutton(
-                                //   onPressed: () => buildMortal(
-                                //       context, const SearchSettingsModal()),
-                                // ),
                               ],
                             ),
                           ),
@@ -64,9 +60,13 @@ class HomePage extends StatelessWidget {
                             height:
                                 SEARCHBAR_HEIGHT, // Adjust the height of the TabBar here
                             child: TabBar(
+                              labelPadding: EdgeInsets.zero,
+                              labelStyle: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w600),
                               tabs: [
                                 Tab(text: 'Asanas'),
-                                Tab(text: 'Waschmaschinen'),
+                                Tab(text: 'Transitions'),
+                                Tab(text: 'Flows'),
                               ],
                               indicator: BoxDecoration(
                                 border: Border(
@@ -95,7 +95,11 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: STANDART_HORIZONTAL_PADDING),
                         child: TabBarView(
-                          children: [AsanaSection(), WmSection()],
+                          children: [
+                            AsanaSection(),
+                            TransitionSection(),
+                            WmSection()
+                          ],
                         ),
                       ),
                     ),

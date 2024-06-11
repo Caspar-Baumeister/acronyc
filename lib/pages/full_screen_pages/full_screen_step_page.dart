@@ -1,6 +1,7 @@
 import 'package:acronyc_app/models/step_model.dart';
 import 'package:acronyc_app/utiles/colors.dart';
 import 'package:acronyc_app/utiles/text_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -85,13 +86,15 @@ class _FullScreenImageViewState extends State<FullScreenImageView> {
               child: PhotoViewGallery(
                 // white ba
                 backgroundDecoration: const BoxDecoration(
-                  color: WHITE1,
+                  color: WHITE,
                 ),
                 pageOptions: <PhotoViewGalleryPageOptions>[
                   PhotoViewGalleryPageOptions(
-                    imageProvider: AssetImage(widget.steps[index].image),
+                    imageProvider:
+                        CachedNetworkImageProvider(widget.steps[index].image),
                     minScale: PhotoViewComputedScale.contained,
                     maxScale: PhotoViewComputedScale.covered * 2,
+                    filterQuality: FilterQuality.high,
                   ),
                 ],
               ),
