@@ -1,12 +1,14 @@
 import 'package:acronyc_app/models/asana_model.dart';
 import 'package:acronyc_app/pages/home/sections/base_grid_view.dart';
+import 'package:acronyc_app/pages/home/sections/filter_row_section.dart';
 import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/providers/filter_provider.dart';
-import '../widgets/grid_view_asana_card.dart';
+import '../widgets/grid_view_cards/grid_view_asana_card.dart';
 
 class AsanaSection extends StatelessWidget {
   const AsanaSection({super.key});
@@ -17,8 +19,10 @@ class AsanaSection extends StatelessWidget {
         Provider.of<UserInputProvider>(context);
     FilterProvider filterProvider = Provider.of<FilterProvider>(context);
 
+    List<AsanaModel> asanas = getAsanas(userInputProvider, filterProvider);
+
     return BaseGridViewSection(
-        children: getAsanas(userInputProvider, filterProvider)
+        children: asanas
             .map(
               (asana) => GridViewAsanaCard(
                 asana: asana,
@@ -58,6 +62,61 @@ class AsanaSection extends StatelessWidget {
           .toList();
     }
 
+    // apply downloaded filter
+    if (filterProvider.isDownloadedFilter) {
+      asanas = asanas
+          .where((asana) => userInputProvider.isAsanaDownloaded(asana.name))
+          .toList();
+    }
+
     return asanas;
+  }
+}
+
+class ResetFilterButton extends StatelessWidget {
+  const ResetFilterButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Provider.of<FilterProvider>(context, listen: false).clearFilters();
+      },
+      child: const SizedBox(
+        width: 200,
+        child: FilterRowItemContainer(
+          isActive: false,
+          child: Center(child: Text("Filter zurücksetzen")),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomButtonComponent extends StatelessWidget {
+  const CustomButtonComponent(
+      {super.key,
+      required this.onTap,
+      required this.text,
+      required this.width});
+
+  final Function() onTap;
+  final String text;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: width,
+        child: FilterRowItemContainer(
+          isActive: false,
+          child: Center(child: Text(text)),
+        ),
+      ),
+    );
   }
 }

@@ -7,6 +7,7 @@ class FilterProvider extends ChangeNotifier {
   Difficulty activeDifficulty = Difficulty.all;
   bool isMarkedFilter = false;
   bool isNotDoneFilter = false;
+  bool isDownloadedFilter = false;
 
   void refresh() {
     notifyListeners();
@@ -32,10 +33,16 @@ class FilterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleDownloaded() {
+    isDownloadedFilter = !isDownloadedFilter;
+    notifyListeners();
+  }
+
   void clearFilters() {
     activeDifficulty = Difficulty.all;
     isMarkedFilter = false;
     isNotDoneFilter = false;
+    isDownloadedFilter = false;
     notifyListeners();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:acronyc_app/pages/home/sections/asana_section.dart';
 import 'package:flutter/material.dart';
 
 class BaseGridViewSection extends StatelessWidget {
@@ -7,13 +8,17 @@ class BaseGridViewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisCount: 2,
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
-        childAspectRatio: 0.75,
-        children: children);
+    return children.isEmpty
+        ? const Center(
+            child: ResetFilterButton(),
+          )
+        : GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15,
+            childAspectRatio: 0.75,
+            children: children);
   }
 }

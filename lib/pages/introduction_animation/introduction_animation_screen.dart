@@ -116,6 +116,6 @@ class IntroductionAnimationScreenState
   void _signUpClick() async {
     Navigator.of(context).push(HomePageRoute());
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt("initScreen", 1);
+    // prefs.setInt("initScreen", 1);
   }
 }

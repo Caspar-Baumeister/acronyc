@@ -38,9 +38,7 @@ class SearchBarWidgetState extends State<SearchBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return // File: search_bar.dart
-
-        Container(
+    return Container(
       height: SEARCHBAR_HEIGHT,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(STANDART_BUTTON_ROUNDNESS),

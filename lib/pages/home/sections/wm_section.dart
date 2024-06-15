@@ -1,6 +1,6 @@
 import 'package:acronyc_app/models/washing_machines_model.dart';
 import 'package:acronyc_app/pages/home/sections/base_grid_view.dart';
-import 'package:acronyc_app/pages/home/widgets/grid_view_wm_card.dart';
+import 'package:acronyc_app/pages/home/widgets/grid_view_cards/grid_view_wm_card.dart';
 import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:acronyc_app/services/providers/filter_provider.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
@@ -57,6 +57,13 @@ class WmSection extends StatelessWidget {
     if (isNotDoneFilter) {
       wm = wm
           .where((wm) => !userInputProvider.isWashingMachineCompleted(wm.name))
+          .toList();
+    }
+
+    // apply downloaded filter
+    if (filterProvider.isDownloadedFilter) {
+      wm = wm
+          .where((wm) => userInputProvider.isWashingMachineDownloaded(wm.name))
           .toList();
     }
 

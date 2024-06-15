@@ -34,7 +34,7 @@ class DataSingelton {
     return asanas.firstWhere((element) => element.name == name);
   }
 
-  WashingMachinesModel getWashingMachineFromId(String name) {
+  WashingMachinesModel getWashingMachineFromName(String name) {
     return washingMachines.firstWhere((element) => element.name == name);
   }
 

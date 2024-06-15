@@ -1,14 +1,15 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-// COLORS //
 
+// COLORS //
+const Color _red = Color(0xFFAD3B3B);
 const Color GREEN = Color(0xFF054208);
 const Color GREEN_LIGHT = Color.fromARGB(255, 7, 92, 12);
 const Color WHITE = Color(0xFFFFFFFF);
 const Color WHITE1 = Color.fromARGB(255, 243, 244, 243);
 const Color BLACK = Color.fromARGB(255, 0, 8, 0);
-const Color GRAY = Color.fromARGB(86, 0, 8, 0);
+const Color GRAY = Color.fromARGB(125, 0, 8, 0);
 
 // TOKENS //
 const Color TEXT_COLOR = BLACK;
@@ -22,3 +23,12 @@ const Color CONFIRMED_COLOR = GREEN;
 
 const Color BUTTON_FILL_COLOR = ACCENT_COLOR;
 const Color BUTTON_TEXT_COLOR = ACCENT_COLOR;
+
+class CustomColors {
+  static const Color backgroundColorSuccess = GREEN;
+  static const Color backgroundColorError = _red;
+  // primaryTextColor
+  static const Color primaryTextColor = BLACK;
+  // secondaryTextColor
+  static const Color secondaryTextColor = WHITE;
+}

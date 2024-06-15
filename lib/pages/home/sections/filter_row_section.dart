@@ -29,7 +29,7 @@ class FilterRowSection extends StatelessWidget {
           const SizedBox(width: 10),
           // TODO offen, geschafft auswählen
           FilterRowBinaryItem(
-            title: "Offen",
+            title: "Nicht erlernt",
             isActive: asanaSearchProvider.isNotDoneFilter,
             changeActiveFilter: (_) {
               asanaSearchProvider.toggleNotDone();
@@ -39,6 +39,7 @@ class FilterRowSection extends StatelessWidget {
           FilterRowItem(
             hintText: "Schwierigkeit",
             eraseFilterOptionText: Difficulty.all.name,
+            activeFilter: asanaSearchProvider.activeDifficulty.name,
             filterList: [
               Difficulty.easy.name,
               Difficulty.medium.name,
@@ -57,24 +58,13 @@ class FilterRowSection extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           FilterRowBinaryItem(
-            title: "Herruntergeladen",
-            isActive: asanaSearchProvider.isMarkedFilter,
+            title: "Offline Modus",
+            isActive: asanaSearchProvider.isDownloadedFilter,
             changeActiveFilter: (_) {
-              asanaSearchProvider.toggleMarked();
+              asanaSearchProvider.toggleDownloaded();
             },
           ),
-          // const SizedBox(width: 10),
-          // FilterRowItem(
-          //   hintText: "Akrobatik Art",
-          //   eraseFilterOptionText: AcrobaticsType.both.name,
-          //   filterList: [
-          //     AcrobaticsType.l_basing.name,
-          //     AcrobaticsType.standing.name
-          //   ],
-          //   changeActiveFilter: (String? filter) {
-          //     return null;
-          //   },
-          // ),
+
           const SizedBox(width: STANDART_HORIZONTAL_PADDING),
         ],
       ),
@@ -82,7 +72,7 @@ class FilterRowSection extends StatelessWidget {
   }
 }
 
-class FilterRowItem extends StatefulWidget {
+class FilterRowItem extends StatelessWidget {
   const FilterRowItem(
       {super.key,
       required this.eraseFilterOptionText,
@@ -98,29 +88,18 @@ class FilterRowItem extends StatefulWidget {
   final String hintText;
 
   @override
-  State<FilterRowItem> createState() => _FilterRowItemState();
-}
-
-class _FilterRowItemState extends State<FilterRowItem> {
-  late String? activeFilter;
-
-  @override
-  void initState() {
-    super.initState();
-    activeFilter = widget.activeFilter;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FilterRowItemContainer(
-      isActive: activeFilter != null,
+      isActive: activeFilter != null && activeFilter != eraseFilterOptionText,
       child: DropdownButton<String>(
+          underline: Container(),
           padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
           value: activeFilter,
-          hint: Text(
-            widget.hintText,
-            style: FILTER_TITLE,
-          ),
+          // hint: Text(
+          //   hintText,
+          //   style: FILTER_TITLE,
+          // ),
+
           onChanged: _handleDropdownChanged,
           icon: _buildDropdownIcon(),
           selectedItemBuilder: _buildSelectedItem,
@@ -129,30 +108,32 @@ class _FilterRowItemState extends State<FilterRowItem> {
   }
 
   void _handleDropdownChanged(String? newValue) {
-    setState(() {
-      activeFilter = newValue == widget.eraseFilterOptionText ? null : newValue;
-    });
-    widget.changeActiveFilter(activeFilter);
+    changeActiveFilter(newValue == eraseFilterOptionText ? null : newValue);
   }
 
   Icon _buildDropdownIcon() {
     return Icon(
       Icons.arrow_drop_down,
-      color: activeFilter != null ? WHITE : TEXT_COLOR,
+      color: activeFilter != null && activeFilter != eraseFilterOptionText
+          ? WHITE
+          : TEXT_COLOR,
     );
   }
 
   List<Widget> _buildSelectedItem(BuildContext context) {
-    return [widget.eraseFilterOptionText, ...widget.filterList]
+    return [eraseFilterOptionText, ...filterList]
         .map<Widget>(
           (String value) => Container(
             padding: const EdgeInsets.only(
                 top:
                     FILTER_ROW_ALIGNMENT_PROPERTY), // Adjust the top padding here
             child: Text(
-              value,
+              value == eraseFilterOptionText ? hintText : value,
               style: FILTER_TITLE.copyWith(
-                color: activeFilter != null ? WHITE : TEXT_COLOR,
+                color: activeFilter != null &&
+                        activeFilter != eraseFilterOptionText
+                    ? WHITE
+                    : TEXT_COLOR,
               ),
             ),
           ),
@@ -161,7 +142,7 @@ class _FilterRowItemState extends State<FilterRowItem> {
   }
 
   List<DropdownMenuItem<String>> _buildDropdownItems() {
-    return [widget.eraseFilterOptionText, ...widget.filterList]
+    return [eraseFilterOptionText, ...filterList]
         .map<DropdownMenuItem<String>>(
           (String value) => DropdownMenuItem<String>(
             value: value,

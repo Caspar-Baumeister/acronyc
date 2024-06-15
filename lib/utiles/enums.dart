@@ -65,6 +65,11 @@ enum Preferences {
   completedAsanas,
   markedWashingMachines,
   completedWashingMachines,
+  markedTransitions,
+  completedTransitions,
+  downloadedWashingMachines,
+  downloadedAsanas,
+  downloadedTransitions,
 }
 
 extension PreferencesTypeExtension on Preferences {
@@ -77,6 +82,16 @@ extension PreferencesTypeExtension on Preferences {
       case Preferences.markedWashingMachines:
         return List<String>;
       case Preferences.completedWashingMachines:
+        return List<String>;
+      case Preferences.markedTransitions:
+        return List<String>;
+      case Preferences.completedTransitions:
+        return List<String>;
+      case Preferences.downloadedWashingMachines:
+        return List<String>;
+      case Preferences.downloadedAsanas:
+        return List<String>;
+      case Preferences.downloadedTransitions:
         return List<String>;
       default:
         return String;

@@ -1,10 +1,10 @@
 import 'package:acronyc_app/models/asana_model.dart';
 import 'package:acronyc_app/models/transition_model.dart';
 import 'package:acronyc_app/models/washing_machines_model.dart';
-import 'package:acronyc_app/pages/explenation_pages/single_asana_page/single_asana_page.dart';
-import 'package:acronyc_app/pages/explenation_pages/single_transition_page/single_transition_page.dart';
-import 'package:acronyc_app/pages/explenation_pages/single_wm_page/single_wm_page.dart';
 import 'package:acronyc_app/pages/home/home_page.dart';
+import 'package:acronyc_app/pages/single_skill_screens/single_asana_page/single_asana_page.dart';
+import 'package:acronyc_app/pages/single_skill_screens/single_transition_page/single_transition_page.dart';
+import 'package:acronyc_app/pages/single_skill_screens/single_wm_page/single_wm_page.dart';
 import 'package:acronyc_app/routing/routes/base_route.dart';
 import 'package:acronyc_app/routing/routes/transitions.dart';
 
