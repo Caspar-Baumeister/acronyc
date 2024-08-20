@@ -1,4 +1,4 @@
-import 'package:acronyc_app/pages/home/sections/asana_section.dart';
+import 'package:acronyc_app/components/buttons/reset_filter_button.dart';
 import 'package:flutter/material.dart';
 
 class BaseGridViewSection extends StatelessWidget {

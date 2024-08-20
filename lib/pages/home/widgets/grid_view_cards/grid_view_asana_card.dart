@@ -1,7 +1,7 @@
+import 'package:acronyc_app/components/custom_cached_network_image.dart';
 import 'package:acronyc_app/pages/home/widgets/action_dialog_popups/asana_card_action_dialog.dart';
 import 'package:acronyc_app/routing/routes/page_routes.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
-import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

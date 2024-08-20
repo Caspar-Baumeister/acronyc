@@ -1,4 +1,4 @@
-import 'package:acronyc_app/routing/routes/transitions.dart';
+import 'package:acronyc_app/routing/transitions/transitions.dart';
 import 'package:flutter/material.dart';
 
 class BaseRoute<T> extends PageRouteBuilder<T> {

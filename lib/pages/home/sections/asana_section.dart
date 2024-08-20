@@ -1,6 +1,5 @@
 import 'package:acronyc_app/models/asana_model.dart';
 import 'package:acronyc_app/pages/home/sections/base_grid_view.dart';
-import 'package:acronyc_app/pages/home/sections/filter_row_section.dart';
 import 'package:acronyc_app/services/data_singelton.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:flutter/material.dart';
@@ -70,53 +69,5 @@ class AsanaSection extends StatelessWidget {
     }
 
     return asanas;
-  }
-}
-
-class ResetFilterButton extends StatelessWidget {
-  const ResetFilterButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Provider.of<FilterProvider>(context, listen: false).clearFilters();
-      },
-      child: const SizedBox(
-        width: 200,
-        child: FilterRowItemContainer(
-          isActive: false,
-          child: Center(child: Text("Filter zurücksetzen")),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButtonComponent extends StatelessWidget {
-  const CustomButtonComponent(
-      {super.key,
-      required this.onTap,
-      required this.text,
-      required this.width});
-
-  final Function() onTap;
-  final String text;
-  final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: width,
-        child: FilterRowItemContainer(
-          isActive: false,
-          child: Center(child: Text(text)),
-        ),
-      ),
-    );
   }
 }

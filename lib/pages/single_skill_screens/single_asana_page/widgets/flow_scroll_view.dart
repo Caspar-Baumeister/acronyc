@@ -1,4 +1,4 @@
-import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
+import 'package:acronyc_app/components/custom_cached_network_image.dart';
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/material.dart';
 

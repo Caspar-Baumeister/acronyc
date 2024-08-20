@@ -6,7 +6,7 @@ import 'package:acronyc_app/pages/single_skill_screens/single_asana_page/single_
 import 'package:acronyc_app/pages/single_skill_screens/single_transition_page/single_transition_page.dart';
 import 'package:acronyc_app/pages/single_skill_screens/single_wm_page/single_wm_page.dart';
 import 'package:acronyc_app/routing/routes/base_route.dart';
-import 'package:acronyc_app/routing/routes/transitions.dart';
+import 'package:acronyc_app/routing/transitions/transitions.dart';
 
 class HomePageRoute extends BaseRoute {
   HomePageRoute()

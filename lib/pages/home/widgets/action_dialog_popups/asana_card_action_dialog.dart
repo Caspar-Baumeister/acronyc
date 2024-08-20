@@ -1,6 +1,6 @@
+import 'package:acronyc_app/components/custom_cached_network_image.dart';
 import 'package:acronyc_app/services/providers/user_input_provider.dart';
 import 'package:acronyc_app/utiles/constants.dart';
-import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

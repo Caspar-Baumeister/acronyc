@@ -1,10 +1,10 @@
 import 'dart:math';
-import 'dart:ui';
 
+import 'package:acronyc_app/components/buttons/blur_icon_button.dart';
+import 'package:acronyc_app/components/custom_cached_network_image.dart';
 import 'package:acronyc_app/pages/full_screen_pages/full_screen_asana_page.dart';
 import 'package:acronyc_app/pages/single_skill_screens/single_asana_page/widgets/app_bar_action_row.dart';
 import 'package:acronyc_app/utiles/colors.dart';
-import 'package:acronyc_app/utiles/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/asana_model.dart';
@@ -198,34 +198,5 @@ class _SingleAsanaPageState extends State<SingleAsanaPage> {
         ),
       ],
     ));
-  }
-}
-
-class BlurIconButton extends StatelessWidget {
-  const BlurIconButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pop(context),
-      child: ClipOval(
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.transparent, // Subdued color
-            shape: BoxShape.circle, // Circular shape
-          ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
